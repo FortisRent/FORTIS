@@ -1,0 +1,212 @@
+{
+	"boot": [
+		{
+			"id": 1,
+			"message": "Olá, como podemos ajudar?",
+			"options": [
+				{
+					"message":"Não consigo entrar na minha conta",
+					"go_to": 2
+				},
+				{
+					"message":"Ainda não sou cliente",
+					"go_to": 3
+				},
+				{
+					"message":"Problemas com o financeiro",
+					"go_to": 4
+				},
+				{
+					"message":"Gostaria de falar com um atendente",
+					"go_to": 5
+				}
+			]
+		},
+		{
+			"id": 2,
+			"message": "Lamentamos muito, como gostaria de prosseguir?",
+			"options": [
+				{
+					"message":"Gostaria de alterar minha senha",
+					"go_to": 6
+				},
+				{
+					"message":"Gostaria de mudar meu e-mail de acesso",
+					"go_to": 7
+				},
+				{
+					"message":"Gostaria de falar com um atendente",
+					"go_to": 5
+				}
+			]
+		},
+		{
+			"id": 3,
+			"message": "Seja bem-vindo! O que gostaria de fazer agora?",
+			"options": [
+				{
+					"message":"Gostaria de me cadastrar",
+					"go_to": 8
+				},
+				{
+					"message":"Gostaria de saber mais sobre os planos",
+					"go_to": 9
+				},
+				{
+					"message":"Gostaria de falar com um atendente",
+					"go_to": 5
+				}
+			]
+		},
+		{
+			"id": 4,
+			"message": "Estamos aqui para ajudar. Qual o seu problema?",
+			"options": [
+				{
+					"message":"Gostaria de estornar uma consulta",
+					"go_to": 10
+				},
+				{
+					"message":"Quais os métodos de pagamento do app?",
+					"go_to": 11
+				},
+				{
+					"message":"Posso pagar em dinheiro?",
+					"go_to": 12
+				},
+				{
+					"message":"Gostaria de falar com um atendente",
+					"go_to": 5
+				}
+			]
+		},
+		{
+			"id": 5,
+			"message": "Sem problemas, sabemos como é chato esperar na fila, então já estamos chamando uma pessoa para te ajudar, por favor aguarde um instante."
+		},
+		{
+			"id": 6,
+			"message": "Sem problemas. Basta você clicar neste [LINK] e será direcionado para a página de alteração e recuperação de senhas. Posso te ajudar em mais alguma questão?",
+			"link": "/user/manage",
+			"options": [
+				{
+					"message":"Sim",
+					"go_to": 1
+				},
+				{
+					"message":"Não",
+					"go_to": 13
+				}
+			]
+		},
+		{
+			"id": 7,
+			"message": "Sem problemas. Basta você clicar neste [LINK] e será direcionado para a página de alteração de e-mails. Posso te ajudar em mais alguma questão?",
+			"link": "/user/manage",
+			"options": [
+				{
+					"message":"Sim",
+					"go_to": 1
+				},
+				{
+					"message":"Não",
+					"go_to": 13
+				}
+			]
+		},
+		{
+			"id": 8,
+			"message": "Que bom! Você é médico, dono de clínica ou paciente?",
+			"options": [
+				{
+					"message":"Sou médico",
+					"go_to": 14
+				},
+				{
+					"message":"Sou dono de clínica",
+					"go_to": 15
+				},
+				{
+					"message":"Sou paciente",
+					"go_to": 16
+				}
+			]
+		},
+		{
+			"id": 9,
+			"message": "Opa, ok! Atualmente não estamos com mensalidades, coletamos apenas x% em cima de cada consulta agendada através do nosso sistema. Posso te ajudar em mais alguma questão?",
+			"options": [
+				{
+					"message":"Sim",
+					"go_to": 1
+				},
+				{
+					"message":"Não",
+					"go_to": 13
+				}
+			]
+		},
+		{
+			"id": 10,
+			"message": "Sem problemas! Basta entrar no seu histórico de pagamentos através deste [LINK] e clicar em estornar pagamento. Posso te ajudar em mais alguma questão?",
+			"link": "/user/payments",
+			"options": [
+				{
+					"message":"Sim",
+					"go_to": 1
+				},
+				{
+					"message":"Não",
+					"go_to": 13
+				}
+			]
+		},
+		{
+			"id": 11,
+			"message": "Você pode pagar as consultas com crédito, débito, pix, boleto ou dinheiro em espécie (apenas na clínica). Posso te ajudar em mais alguma questão?",
+			"options": [
+				{
+					"message":"Sim",
+					"go_to": 1
+				},
+				{
+					"message":"Não",
+					"go_to": 13
+				}
+			]
+		},
+		{
+			"id": 12,
+			"message": "Sim, você poderá pagar com dinheiro em espécie, basta mostrar o seu código de agendamento na clínica antes da sua consulta ou exame. Posso te ajudar em mais alguma questão?",
+			"options": [
+				{
+					"message":"Sim",
+					"go_to": 1
+				},
+				{
+					"message":"Não",
+					"go_to": 13
+				}
+			]
+		},
+		{
+			"id": 13,
+			"message": "Muito obrigado, estamos à disposição caso tenha mais alguma dúvida!"
+		},
+		{
+			"id": 14,
+			"message": "Muito bom ter você por aqui. Através deste [LINK] você consegue criar a sua conta e se associar a uma clínica",
+			"link": "/login"
+		},
+		{
+			"id": 15,
+			"message": "Muito bom ter você por aqui. Através deste [LINK] você consegue criar a sua conta e cadastrar a sua clínica",
+			"link": "/login"
+		},
+		{
+			"id": 16,
+			"message": "Muito bom ter você por aqui. Através deste [LINK] você consegue criar a sua conta e marcar suas consultas ou exames",
+			"link": "/login"
+		}
+	]
+}

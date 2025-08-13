@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  quarkus-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app # Mount the current directory to the container
+      - ~/.m2:/root/.m2 # Share the Maven repository for faster builds
+    ports:
+      - "8080:8080" # Map Quarkus dev mode port
+      - "5005:5005" # Debugging port (optional)
+    environment:
+      - MAVEN_OPTS=-Xmx512m

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Atendimento v0.0.1</title>
+
+	<!-- Import socket.io -->
+	<script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+
+	<style>
+	  #messages {
+		list-style-type: none;
+		margin: 15px;
+		padding: 0;
+	  }
+
+	  #messages li {
+		padding: 5px 10px;
+	  }
+
+	  #messages li:nth-child(odd) {
+		background: #eee;
+	  }
+	</style>
+  </head>
+
+  <body>
+
+	<button id="chat_1_btn">Ticket MM_0001</button>
+	<button id="chat_2_btn">Ticket MM_0002</button>
+
+	<!-- Message list -->
+	<ul id="messages"></ul>
+
+	<!-- Form to write and sand message -->
+	<form id="form" action="">
+	  <textarea name="message_input" id="message_input" autocomplete="off"></textarea>
+	  <br><br><button>Enviar</button>
+	</form>
+
+	<script>
+	  	// Select DOM Elements
+	  	const form = document.getElementById("form");
+	  	const input = document.getElementById("message_input");
+
+	  	const btn_ticket_1 = document.getElementById("chat_1_btn");
+	  	const btn_ticket_2 = document.getElementById("chat_2_btn");
+
+	  	// Create instance of socket.
+	  	const socket = io('http://localhost:3000');
+
+	  	// Listen for chat history and render it
+	  	socket.on("chat_history", (messages) => {
+			messages.forEach((msg) => {
+		  		const item = document.createElement("li");
+		  		item.textContent = `${msg.user_id} - ${msg.message}`;
+		  		document.getElementById("messages").appendChild(item);
+			});
+	  	});
+
+		socket.on("new_ticket", (new_ticket) => {
+			// alert(`O novo ticket é ${new_ticket}`);
+			localStorage.setItem('selected_ticket', new_ticket);
+
+			const new_btn = document.createElement("button");
+			new_btn.textContent = 'Ticket';
+			document.getElementById("chat_buttons").appendChild(new_btn);
+		});
+
+	  	btn_ticket_1.addEventListener("click", (e) => {	
+			socket.emit("changed_room", "ticket_001");
+			document.getElementById("messages").innerHTML = "";
+	  	});
+
+	  	btn_ticket_2.addEventListener("click", (e) => {
+			socket.emit("changed_room", "ticket_002");
+			document.getElementById("messages").innerHTML = "";
+		});
+
+	  // Submit message.
+	  form.addEventListener("submit", (e) => {
+		e.preventDefault();
+		if (input.value) {
+		  
+		  // Sending id, message, and date as an object
+		  socket.emit("chat_message", {
+			user_id: "12345",
+			message: input.value,
+		  });
+
+		  input.value = "";
+		}
+	  });
+
+	  // Receiving data "from" the server
+	  socket.on("chat_message", (data) => {
+		const { user_id, message } = data;
+
+		const item = document.createElement("li");
+		item.textContent = `${data.user_id} - ${data.message}`;
+		document.getElementById("messages").appendChild(item);
+	  });
+	</script>
+  </body>
+</html>

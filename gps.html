@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Location Tracker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 300px; width: 100%; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <button id="find-me">Show my location</button><br />
+    <p id="status"></p>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let map;
+        let marker;
+
+        function geoFindMe() {
+            const status = document.querySelector("#status");
+
+            function success(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                status.textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+
+                if (!map) {
+                    // Initialize map
+                    map = L.map("map").setView([latitude, longitude], 15);
+                    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                        attribution: "&copy; OpenStreetMap contributors",
+                    }).addTo(map);
+
+                    // Add marker
+                    marker = L.marker([latitude, longitude]).addTo(map);
+                } else {
+                    // Update marker position
+                    marker.setLatLng([latitude, longitude]);
+                    map.setView([latitude, longitude], 15);
+                }
+            }
+
+            function error() {
+                status.textContent = "Unable to retrieve your location";
+            }
+
+            const options = {
+                enableHighAccuracy: true, // Enable high accuracy
+                maximumAge: 30000,
+                timeout: 27000,
+            };
+
+            if (!navigator.geolocation) {
+                status.textContent = "Geolocation is not supported by your browser";
+            } else {
+                status.textContent = "Locating…";
+                // Force the browser to ask for permission
+                navigator.geolocation.getCurrentPosition(success, error, options);
+                // Start watching the position with high accuracy
+                navigator.geolocation.watchPosition(success, error, options);
+            }
+        }
+
+        document.querySelector("#find-me").addEventListener("click", geoFindMe);
+    </script>
+</body>
+</html>
