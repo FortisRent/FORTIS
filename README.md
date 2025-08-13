@@ -99,7 +99,7 @@ cd api
 composer install
 cp .env.example .env
 # Configure as variáveis de ambiente no arquivo .env
-php -S localhost:8000
+php -S localhost:5510
 ```
 
 ### 2. Configuração do Backend Java
