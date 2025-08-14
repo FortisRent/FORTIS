@@ -117,6 +117,14 @@
         <q-item>
           <q-item-section style="display: flex; gap: 0.5rem">
             <q-item-label class="text-weight-light">
+              <strong class="text-bold">CPF / CNPJ:</strong>
+              {{ client_cpf || user_cpf}}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section style="display: flex; gap: 0.5rem">
+            <q-item-label class="text-weight-light">
               <strong class="text-bold">Email:</strong>
               {{ email || client_email}}
             </q-item-label>
@@ -732,6 +740,8 @@ export default {
       city_name: '',
       state_name: '',
 
+      user_cpf:'',
+      client_cpf:'',
       documentItems: [{ selected: null }],
       service_charge_company: [],
       ValorTotal: 0,
@@ -943,6 +953,8 @@ export default {
           this.client_email = data.project.client_email;
           this.client_phone = data.project.client_phone;
           this.project_name = data.project.project_name;
+          this.user_cpf = data.project.user_cpf;
+          this.client_cpf = data.project.client_cpf;
           this.project_description = data.project.project_description;
           this.name_machine_category = data.project_stages.map(
             (stage) => stage.name_machine_category
