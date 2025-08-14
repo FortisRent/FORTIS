@@ -14,7 +14,7 @@
 			<q-card class="card-style q-pa-sm q-mb-md">
 				<div class="text-center text-caption">
 					<q-avatar size="90px" class="q-mb-lg q-mt-md">
-						<q-img v-if="profile_picture_url" :src="`http://localhost:5510/${profile_picture_url}`" width="90px"
+						<q-img v-if="profile_picture_url" :src="`https://fortis-api.55technology.com/${profile_picture_url}`" width="90px"
 							height="90px" fit="cover" style="border-radius: 100px;" />
 						<q-icon v-if="loaded && profile_picture_url" name="person" size="55px" color="secondary" class="q-mr-sm" />
 						<q-skeleton v-if="!loaded" type="QAvatar" size="90px" class="q-mb-sm" />
@@ -168,7 +168,7 @@ export default {
 		},
 		async get_user_data() {
 			try {
-				const response = await fetch(`http://localhost:5510/v1/user/logged/`, {
+				const response = await fetch(`https://fortis-api.55technology.com/v1/user/logged/`, {
 					method: "GET",
 					headers: { token: localStorage.getItem("access_token") },
 				});
@@ -229,7 +229,7 @@ export default {
 		},
 		async get_employee_by_logged() {
 			try {
-				const response = await fetch(`http://localhost:5510/v1/employee/logged/`, {
+				const response = await fetch(`https://fortis-api.55technology.com/v1/employee/logged/`, {
 					method: "GET",
 					headers: { token: localStorage.getItem("access_token") },
 				});

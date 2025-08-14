@@ -116,7 +116,7 @@
 				};
 
 				try {
-					const response = await fetch(`http://localhost:5510/v1/user/${this.$route.params.user_uuid}`, {
+					const response = await fetch(`https://fortis-api.55technology.com/v1/user/${this.$route.params.user_uuid}`, {
 						method: 'PUT',
 						headers: {
 							'Content-Type': 'application/json',
@@ -144,7 +144,7 @@
 				}
 			},
 			async get_user_data() {
-				fetch(`http://localhost:5510/v1/user/${this.$route.params.user_uuid}`)
+				fetch(`https://fortis-api.55technology.com/v1/user/${this.$route.params.user_uuid}`)
 				.then(response => {
 					if (!response.ok) {
 						throw new Error('Network response was not ok');

@@ -93,7 +93,7 @@
         }
       },
       async get_roles() {
-        fetch('http://localhost:5510/v1/role/', {
+        fetch('https://fortis-api.55technology.com/v1/role/', {
           method: 'GET',
           headers: { 'token': localStorage.getItem('access_token') }
         })
@@ -125,7 +125,7 @@
           return;
         }
   
-        fetch('http://localhost:5510/v1/employee/', {
+        fetch('https://fortis-api.55technology.com/v1/employee/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

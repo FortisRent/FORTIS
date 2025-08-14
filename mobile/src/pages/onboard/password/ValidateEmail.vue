@@ -56,7 +56,7 @@ export default {
   methods: {
     async onSubmit() {
       try {
-        const response = await fetch("http://localhost:5510/v1/password/email", {
+        const response = await fetch("https://fortis-api.55technology.com/v1/password/email", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

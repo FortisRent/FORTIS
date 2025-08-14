@@ -181,7 +181,7 @@ const radius = ref(null);
 
 // Função para buscar categorias de máquinas
 // const get_all_machine_categories = () => {
-//   fetch(`http://localhost:5510/v1/machine/category/`, {
+//   fetch(`https://fortis-api.55technology.com/v1/machine/category/`, {
 //     method: "GET",
 //     headers: {
 //       token: localStorage.getItem("access_token"),
@@ -209,7 +209,7 @@ const radius = ref(null);
 
 // Função para enviar o formulário
 const on_submit = () => {
-  fetch(`http://localhost:5510/v1/project/lifting/`, {
+  fetch(`https://fortis-api.55technology.com/v1/project/lifting/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

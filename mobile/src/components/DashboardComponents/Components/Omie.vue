@@ -403,7 +403,7 @@ export default {
       try {
         this.loadingClientesOmie = true;
         const response = await fetch(
-          'http://localhost:5510/v1/omie/client/list/'
+          'https://fortis-api.55technology.com/v1/omie/client/list/'
         );
         if (!response.ok) throw new Error('Erro ao buscar clientes Omie');
         const data = await response.json();
@@ -425,7 +425,7 @@ export default {
       try {
         this.isLoadingNewClient = true;
         const response = await fetch(
-          'http://localhost:5510/v1/omie/client/new/',
+          'https://fortis-api.55technology.com/v1/omie/client/new/',
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -486,7 +486,7 @@ export default {
         }
 
         const response = await fetch(
-          'http://localhost:5510/v1/omie/cobranca/new/',
+          'https://fortis-api.55technology.com/v1/omie/cobranca/new/',
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -531,7 +531,7 @@ export default {
         }
 
         const response = await fetch(
-          'http://localhost:5510/v1/omie/boleto/new/',
+          'https://fortis-api.55technology.com/v1/omie/boleto/new/',
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -570,7 +570,7 @@ export default {
         const projectUuid = segments[segments.length - 1];
 
         const response = await fetch(
-          `http://localhost:5510/v1/budget/project/financial/${projectUuid}`,
+          `https://fortis-api.55technology.com/v1/budget/project/financial/${projectUuid}`,
           {
             headers: { token: localStorage.getItem('access_token') },
           }

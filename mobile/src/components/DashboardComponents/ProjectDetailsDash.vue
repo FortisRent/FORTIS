@@ -822,7 +822,7 @@ export default {
     async get_roles() {
 
       await fetch(
-        `http://localhost:5510/v1/role/company/${this.company_uuid}`,
+        `https://fortis-api.55technology.com/v1/role/company/${this.company_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }
@@ -926,7 +926,7 @@ export default {
     },
 
     async get_project_by_uuid() {
-      fetch(`http://localhost:5510/v1/project/${this.project_uuid}`, {
+      fetch(`https://fortis-api.55technology.com/v1/project/${this.project_uuid}`, {
         headers: { token: localStorage.getItem('access_token') },
       })
         .then((response) => {
@@ -971,7 +971,7 @@ export default {
     },
     async get_service_charge() {
       await fetch(
-        `http://localhost:5510/v1/service/charge/company/${this.company_uuid}`,
+        `https://fortis-api.55technology.com/v1/service/charge/company/${this.company_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }
@@ -997,7 +997,7 @@ export default {
     },
     async get_budget_by_project_uuid() {
       await fetch(
-        `http://localhost:5510/v1/budget/${this.$route.params.budget_uuid}`,
+        `https://fortis-api.55technology.com/v1/budget/${this.$route.params.budget_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }
@@ -1093,7 +1093,7 @@ export default {
     async cancel_date() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/budget/cancel/${this.$route.params.budget_uuid}`,
+          `https://fortis-api.55technology.com/v1/budget/cancel/${this.$route.params.budget_uuid}`,
           {
             method: 'DELETE',
             headers: {
@@ -1144,7 +1144,7 @@ export default {
         budget_machine_minimum_rental_period: machine.budget_machine_minimum_rental_period,
       }));
 
-      fetch('http://localhost:5510/v1/budget/', {
+      fetch('https://fortis-api.55technology.com/v1/budget/', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -1203,7 +1203,7 @@ export default {
 
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/budget/machine/operator/`,
+          `https://fortis-api.55technology.com/v1/budget/machine/operator/`,
           {
             method: 'POST',
             headers: {
@@ -1243,7 +1243,7 @@ export default {
     async delete_budget_machine(budget_machine_uuid) {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/budget/machine/${budget_machine_uuid}`,
+          `https://fortis-api.55technology.com/v1/budget/machine/${budget_machine_uuid}`,
           {
             method: 'DELETE',
             headers: {
@@ -1280,7 +1280,7 @@ export default {
     },
     async getBudgetPDF() {
       try {
-        const response = await fetch(`http://localhost:5510/v1/budget/pdf/${this.$route.params.budget_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/budget/pdf/${this.$route.params.budget_uuid}`, {
           method: 'GET',
           headers: { token: localStorage.getItem('access_token') },
         });
@@ -1293,7 +1293,7 @@ export default {
         const filePath = data.output;
 
         // Abre o arquivo direto numa nova aba
-        window.open(`http://localhost:5510${filePath}`, '_blank');
+        window.open(`https://fortis-api.55technology.com${filePath}`, '_blank');
 
       } catch (error) {
         console.error('Erro ao buscar ou abrir o PDF:', error);

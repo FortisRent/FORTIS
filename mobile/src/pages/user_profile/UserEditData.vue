@@ -104,7 +104,7 @@
     },
     async update_user_data(){
 
-    fetch(`http://localhost:5510/v1/user/logged/`, {
+    fetch(`https://fortis-api.55technology.com/v1/user/logged/`, {
         method: 'PUT',
         headers: {
         'Content-Type': 'application/json',
@@ -139,7 +139,7 @@
 
 },
 async get_user_data() {
-      fetch(`http://localhost:5510/v1/user/logged/`, {
+      fetch(`https://fortis-api.55technology.com/v1/user/logged/`, {
         method:'GET',
         headers:{'token': localStorage.getItem('access_token')}})
         .then(response => {

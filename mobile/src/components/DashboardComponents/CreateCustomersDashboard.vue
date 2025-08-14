@@ -84,7 +84,7 @@ export default {
     async createClient() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/client/`,
+          `https://fortis-api.55technology.com/v1/client/`,
           {
             method: 'POST',
             headers: {

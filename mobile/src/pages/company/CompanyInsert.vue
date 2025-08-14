@@ -142,7 +142,7 @@
 				}
 			},
 			async insert_company(){
-				fetch(`http://localhost:5510/v1/company/`, {
+				fetch(`https://fortis-api.55technology.com/v1/company/`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

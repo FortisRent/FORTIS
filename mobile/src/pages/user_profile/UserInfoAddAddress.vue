@@ -125,7 +125,7 @@
             },
             async create_user_address(){
 
-            fetch(`http://localhost:5510/v1/user/address/`, {
+            fetch(`https://fortis-api.55technology.com/v1/user/address/`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -160,7 +160,7 @@
         });
         },
         async get_user_data() {
-            fetch(`http://localhost:5510/v1/user/logged/`, {
+            fetch(`https://fortis-api.55technology.com/v1/user/logged/`, {
             method:'GET',
             headers:{'token': localStorage.getItem('access_token')}})
             .then(response => {

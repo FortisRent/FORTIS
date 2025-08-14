@@ -87,7 +87,7 @@ export default {
     async checkAvailability() {
       // Fetch available machines (POST)
       try {
-        const response = await fetch('http://localhost:5510/v1/budget/available/', {
+        const response = await fetch('https://fortis-api.55technology.com/v1/budget/available/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ export default {
       const expected_date = `${this.calendar_date} ${this.hour_date}`;
 
       try {
-        const response = await fetch(`http://localhost:5510/v1/budget/proposal/accept/${this.budget_proposal_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/budget/proposal/accept/${this.budget_proposal_uuid}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

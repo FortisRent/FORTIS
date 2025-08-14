@@ -97,7 +97,7 @@ export default {
     },
     async get_budget_proposal_by_uuid() {
       fetch(
-        `http://localhost:5510/v1/budget/proposal/project/${this.$route.params.project_uuid}`,
+        `https://fortis-api.55technology.com/v1/budget/proposal/project/${this.$route.params.project_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }

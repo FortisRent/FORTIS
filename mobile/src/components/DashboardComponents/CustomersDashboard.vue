@@ -80,7 +80,7 @@ export default {
     async get_list_operator() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/client/company/${this.$route.params.company_uuid}`,
+          `https://fortis-api.55technology.com/v1/client/company/${this.$route.params.company_uuid}`,
           {
             method: 'GET',
             headers: { token: localStorage.getItem('access_token') },
@@ -111,7 +111,7 @@ export default {
     async update_client() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/client/${this.clienteSelecionado.user_uuid}`,
+          `https://fortis-api.55technology.com/v1/client/${this.clienteSelecionado.user_uuid}`,
           {
             method: 'PUT',
             headers: {
@@ -148,7 +148,7 @@ export default {
           persistent: true
         }).onOk(async () => {
           const response = await fetch(
-            `http://localhost:5510/v1/client/${cliente.user_uuid}`,
+            `https://fortis-api.55technology.com/v1/client/${cliente.user_uuid}`,
             {
               method: 'DELETE',
               headers: {

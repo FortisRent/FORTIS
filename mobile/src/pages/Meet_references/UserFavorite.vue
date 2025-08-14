@@ -18,7 +18,7 @@
               <q-avatar style="width: 70px; height: 70px;">
                             <q-img
                             v-if="doctor.profile_photo"
-                            :src="`http://localhost:5510/${doctor.profile_photo}`"
+                            :src="`https://fortis-api.55technology.com/${doctor.profile_photo}`"
                             width="70px"
                             height="70px"
                             fit="cover"
@@ -73,7 +73,7 @@
       refreshList(done) {
         this.loading = true;
   
-        fetch(`http://localhost:5510/v1/favorite/professional/logged/`, {
+        fetch(`https://fortis-api.55technology.com/v1/favorite/professional/logged/`, {
           method: 'GET',
           headers: {
              'token': localStorage.getItem('access_token')
@@ -123,7 +123,7 @@
 				persistent: true,
 				dark: true
 			}).onOk(() => {
-				fetch('http://localhost:5510/v1/favorite/professional/' + uuid, {
+				fetch('https://fortis-api.55technology.com/v1/favorite/professional/' + uuid, {
 					method: 'DELETE',
 					headers: {
 						'token': localStorage.getItem('access_token')

@@ -120,7 +120,7 @@ export default {
       } else {
         try {
           // Perform fetch POST request
-          const response = await fetch('http://localhost:5510/v1/user', {
+          const response = await fetch('https://fortis-api.55technology.com/v1/user', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

@@ -83,7 +83,7 @@ export default {
       this.isLoading = true;
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/budget/company/${this.companyUuid}`,
+          `https://fortis-api.55technology.com/v1/budget/company/${this.companyUuid}`,
           {
             headers: { token: localStorage.getItem("access_token") },
           }

@@ -124,7 +124,7 @@
             },
             async update_user_address(){
 
-            fetch(`http://localhost:5510/v1/user/address/${this.$route.params.user_address_uuid}`, {
+            fetch(`https://fortis-api.55technology.com/v1/user/address/${this.$route.params.user_address_uuid}`, {
                 method: 'PUT',
                 headers: {
                 'Content-Type': 'application/json',
@@ -159,7 +159,7 @@
         });
         },
         async get_user_address_by_logged() {
-            fetch(`http://localhost:5510/v1/user/address/logged/`, {
+            fetch(`https://fortis-api.55technology.com/v1/user/address/logged/`, {
             method:'GET',
             headers:{'token': localStorage.getItem('access_token')}})
             .then(response => {

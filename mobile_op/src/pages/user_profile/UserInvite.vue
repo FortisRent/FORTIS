@@ -71,7 +71,7 @@ export default {
 	},
 	methods: {
 		async get_invite_by_logged_user() {
-			fetch('http://localhost:5510/v1/employee/invite/', {
+			fetch('https://fortis-api.55technology.com/v1/employee/invite/', {
 				headers: { 'token': localStorage.getItem('access_token') }
 			})
 			.then(response => {
@@ -96,7 +96,7 @@ export default {
 
 		
 		async acceptInvite(company_uuid) {
-			fetch(`http://localhost:5510/v1/employee/invite/accept/${company_uuid}`, {
+			fetch(`https://fortis-api.55technology.com/v1/employee/invite/accept/${company_uuid}`, {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ export default {
 
 		
 		async declineInvite(company_uuid) {
-			fetch(`http://localhost:5510/v1/employee/invite/decline/${company_uuid}`, {
+			fetch(`https://fortis-api.55technology.com/v1/employee/invite/decline/${company_uuid}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',

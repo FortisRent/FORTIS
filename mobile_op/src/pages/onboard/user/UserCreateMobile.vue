@@ -134,7 +134,7 @@
 			  }
 
 			  try {
-				  await axios.post('http://localhost:5510/v1/user/', {
+				  await axios.post('https://fortis-api.55technology.com/v1/user/', {
 					  full_name: full_name.value,
 					  phone: phone.value,
 					  password: password.value,

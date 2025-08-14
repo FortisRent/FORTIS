@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     async get_operator_by_company() {
-      await fetch(`http://localhost:5510/v1/operator/company/${this.company_uuid}`, {
+      await fetch(`https://fortis-api.55technology.com/v1/operator/company/${this.company_uuid}`, {
         headers: { token: localStorage.getItem('access_token') },
       })
         .then((res) => res.json())
@@ -109,7 +109,7 @@ export default {
 
     async get_budget_by_project_uuid() {
       await fetch(
-        `http://localhost:5510/v1/budget/${this.$route.params.budget_uuid}`,
+        `https://fortis-api.55technology.com/v1/budget/${this.$route.params.budget_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }
@@ -140,7 +140,7 @@ export default {
 
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/budget/machine/operator/${employee.machine_operator_uuid}`,
+          `https://fortis-api.55technology.com/v1/budget/machine/operator/${employee.machine_operator_uuid}`,
           {
             method: 'PUT',
             headers: {
@@ -186,7 +186,7 @@ export default {
     async removeOperator(machine, employee) {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/budget/machine/operator/${employee.machine_operator_uuid}`,
+          `https://fortis-api.55technology.com/v1/budget/machine/operator/${employee.machine_operator_uuid}`,
           {
             method: 'DELETE',
             headers: {

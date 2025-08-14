@@ -143,7 +143,7 @@ export default {
   methods: {
     async get_machine_list() {
       fetch(
-        `http://localhost:5510/v1/machine/company/${this.$route.params.company_uuid}`,
+        `https://fortis-api.55technology.com/v1/machine/company/${this.$route.params.company_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }
@@ -177,7 +177,7 @@ export default {
     async delete_machine() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/machine/${this.machine_to_delete}`,
+          `https://fortis-api.55technology.com/v1/machine/${this.machine_to_delete}`,
           {
             method: 'DELETE',
             headers: {

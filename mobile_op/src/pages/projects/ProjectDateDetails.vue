@@ -739,7 +739,7 @@
       this.cancel_date();
     },
       async get_project_by_uuid() {
-        await fetch(`http://localhost:5510/v1/project/${this.project_uuid}`, {
+        await fetch(`https://fortis-api.55technology.com/v1/project/${this.project_uuid}`, {
           headers: { token: localStorage.getItem('access_token') },
         })
           .then((response) => {
@@ -784,7 +784,7 @@
       },
       async get_budget_by_project_uuid() {
         await fetch(
-          `http://localhost:5510/v1/budget/proposal/details/${this.$route.params.budget_proposal_uuid}`,
+          `https://fortis-api.55technology.com/v1/budget/proposal/details/${this.$route.params.budget_proposal_uuid}`,
           {
             headers: { token: localStorage.getItem('access_token') },
           }
@@ -843,7 +843,7 @@
       async cancel_date() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/budget/proposal/cancel/${this.$route.params.budget_proposal_uuid}`,
+          `https://fortis-api.55technology.com/v1/budget/proposal/cancel/${this.$route.params.budget_proposal_uuid}`,
           {
             method: 'DELETE',
             headers: {

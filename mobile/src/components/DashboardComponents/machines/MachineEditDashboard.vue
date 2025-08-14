@@ -978,7 +978,7 @@ export default {
     },
     async update_machine() {
       fetch(
-        `http://localhost:5510/v1/machine/${this.$route.params.machine_uuid}`,
+        `https://fortis-api.55technology.com/v1/machine/${this.$route.params.machine_uuid}`,
         {
           method: 'PUT',
           headers: {
@@ -1066,7 +1066,7 @@ export default {
     },
     async get_machine_by_company_uuid() {
       fetch(
-        `http://localhost:5510/v1/machine/${this.$route.params.machine_uuid}`,
+        `https://fortis-api.55technology.com/v1/machine/${this.$route.params.machine_uuid}`,
         {
           method: 'GET',
           headers: { token: localStorage.getItem('access_token') },

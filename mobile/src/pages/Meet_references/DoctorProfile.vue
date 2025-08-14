@@ -28,7 +28,7 @@
 		  />
 		  <q-img
 			v-else
-			:src="`http://localhost:5510/${image_url}`"
+			:src="`https://fortis-api.55technology.com/${image_url}`"
 			width="500px"
 			height="250px"
 			style="filter: blur(2px);"
@@ -44,7 +44,7 @@
 		  ></q-skeleton>
 		  <q-img
 			v-else
-			:src="selfie_url ? `http://localhost:5510/${selfie_url}` : 'https://via.placeholder.com/170'"
+			:src="selfie_url ? `https://fortis-api.55technology.com/${selfie_url}` : 'https://via.placeholder.com/170'"
 			width="170px"
 			height="170px"
 			fit="cover"
@@ -167,7 +167,7 @@
 	methods: {
 	  async get_doctor_data() {
 		try {
-		  const response = await fetch(`http://localhost:5510/v1/doctor/${this.$route.params.doctor_uuid}`);
+		  const response = await fetch(`https://fortis-api.55technology.com/v1/doctor/${this.$route.params.doctor_uuid}`);
 		  if (!response.ok) throw new Error("Erro ao carregar dados do médico.");
 		  const data = await response.json();
 		  this.doctor = data.doctor;
@@ -181,7 +181,7 @@
 	  },
 	  async create_favorite_doctor() {
 		try {
-		  const response = await fetch(`http://localhost:5510/v1/favorite/professional/`, {
+		  const response = await fetch(`https://fortis-api.55technology.com/v1/favorite/professional/`, {
 			method: "POST",
 			headers: {
 			  "Content-Type": "application/json",

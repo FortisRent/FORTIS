@@ -404,7 +404,7 @@
 						class="q-mt-sm"
 					/>
 					<q-uploader 
-						:url="`http://localhost:5510/v1/machine/photo/upload/`"
+						:url="`https://fortis-api.55technology.com/v1/machine/photo/upload/`"
 						field-name="machine_image"
 						label="Foto da Máquina" 
 						color="secondary" 
@@ -692,7 +692,7 @@
 			get_all_machine_categories() {
 				this.loading = true;
 
-				fetch(`http://localhost:5510/v1/machine/category/`, {
+				fetch(`https://fortis-api.55technology.com/v1/machine/category/`, {
 					method: "GET",
 					headers: {
 						token: localStorage.getItem("access_token"),
@@ -728,7 +728,7 @@
 			},
 			async insert_machine(){
 				console.log(this.machine_photo_list);
-				fetch('http://localhost:5510/v1/machine/', {
+				fetch('https://fortis-api.55technology.com/v1/machine/', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

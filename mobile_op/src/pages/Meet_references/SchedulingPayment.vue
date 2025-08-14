@@ -156,7 +156,7 @@ export default {
     },
     confirmPayment() {
 
-      fetch(`http://localhost:5510/v1/appointment/scheduling/`, {
+      fetch(`https://fortis-api.55technology.com/v1/appointment/scheduling/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -105,7 +105,7 @@ export default {
 	},
 	methods: {
 		async get_employee_by_company_uuid() {
-			fetch(`http://localhost:5510/v1/employee/company/${this.$route.params.company_uuid}`, {
+			fetch(`https://fortis-api.55technology.com/v1/employee/company/${this.$route.params.company_uuid}`, {
 				headers: { 'token': localStorage.getItem('access_token') }
 			})
 			.then(response => {
@@ -140,7 +140,7 @@ export default {
 		async deleteEmployee() {
 			if (!this.employeeToDelete) return;
 
-			fetch(`http://localhost:5510/v1/employee/${this.employeeToDelete}`, {
+			fetch(`https://fortis-api.55technology.com/v1/employee/${this.employeeToDelete}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',

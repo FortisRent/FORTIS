@@ -479,7 +479,7 @@ export default {
       this.loading = true;
       try {
         const response = await fetch(
-          'http://localhost:5510/v1/project/logged/',
+          'https://fortis-api.55technology.com/v1/project/logged/',
           {
             headers: { token: localStorage.getItem('access_token') },
           }
@@ -523,7 +523,7 @@ export default {
       this.loadingMachines = true;
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/category/group/project/${this.$route.params.project_category_uuid}`,
+          `https://fortis-api.55technology.com/v1/category/group/project/${this.$route.params.project_category_uuid}`,
           {
             method: 'GET',
             headers: {
@@ -556,7 +556,7 @@ export default {
 
       this.loadingMachines = true;
       fetch(
-        `http://localhost:5510/v1/machine/category/group/${category_uuid}`,
+        `https://fortis-api.55technology.com/v1/machine/category/group/${category_uuid}`,
         {
           method: 'GET',
           headers: { token: localStorage.getItem('access_token') },
@@ -656,7 +656,7 @@ export default {
           };
         });
       });
-      fetch(`http://localhost:5510/v1/project/client/`, {
+      fetch(`https://fortis-api.55technology.com/v1/project/client/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -699,7 +699,7 @@ export default {
     },
       async get_client_company() {
       fetch(
-        `http://localhost:5510/v1/client/company/${this.company_uuid}`,
+        `https://fortis-api.55technology.com/v1/client/company/${this.company_uuid}`,
         {
           method: 'GET',
           headers: { token: localStorage.getItem('access_token') },

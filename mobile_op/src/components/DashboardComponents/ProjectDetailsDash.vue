@@ -938,7 +938,7 @@ export default {
       this.ValorTotal = totalGeral
     },
     async get_project_by_uuid() {
-      fetch(`http://localhost:5510/v1/project/${this.project_uuid}`, {
+      fetch(`https://fortis-api.55technology.com/v1/project/${this.project_uuid}`, {
         headers: { token: localStorage.getItem('access_token') },
       })
         .then((response) => {
@@ -981,7 +981,7 @@ export default {
     },
     async get_service_charge() {
       await fetch(
-        `http://localhost:5510/v1/service/charge/company/${this.company_uuid}`,
+        `https://fortis-api.55technology.com/v1/service/charge/company/${this.company_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }
@@ -1007,7 +1007,7 @@ export default {
     },
     async get_budget_by_project_uuid() {
       await fetch(
-        `http://localhost:5510/v1/budget/${this.$route.params.budget_uuid}/company/${this.company_uuid}`,
+        `https://fortis-api.55technology.com/v1/budget/${this.$route.params.budget_uuid}/company/${this.company_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }
@@ -1074,7 +1074,7 @@ export default {
         (machine) => machine.budget_machine_uuid
       );
 
-      fetch('http://localhost:5510/v1/budget/proposal/', {
+      fetch('https://fortis-api.55technology.com/v1/budget/proposal/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1116,7 +1116,7 @@ export default {
     },
     async get_operator_by_company() {
       await fetch(
-        `http://localhost:5510/v1/operator/company/${this.company_uuid}`,
+        `https://fortis-api.55technology.com/v1/operator/company/${this.company_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }
@@ -1151,7 +1151,7 @@ export default {
 
       try {
         const response = await fetch(
-          'http://localhost:5510/v1/budget/machine/operator/',
+          'https://fortis-api.55technology.com/v1/budget/machine/operator/',
           {
             method: 'POST',
             headers: {

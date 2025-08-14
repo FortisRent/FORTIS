@@ -365,7 +365,7 @@ export default {
         }
         
         // Carregar projetos da empresa via API
-        const response = await fetch(`http://localhost:5510/v1/budget/company/${company_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/budget/company/${company_uuid}`, {
           headers: { 
             'token': access_token,
             'Content-Type': 'application/json'

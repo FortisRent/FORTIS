@@ -439,7 +439,7 @@ export default {
 
     async loadBudgetData() {
       try {
-        const response = await fetch(`http://localhost:5510/v1/budget/${this.budgetUuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/budget/${this.budgetUuid}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

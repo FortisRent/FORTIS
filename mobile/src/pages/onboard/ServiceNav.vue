@@ -224,7 +224,7 @@ export default {
   },
   methods: {
     async get_user_by_uuid_logged() {
-      await fetch('http://localhost:5510/v1/user/logged/', {
+      await fetch('https://fortis-api.55technology.com/v1/user/logged/', {
         headers: { token: localStorage.getItem('access_token') },
       })
         .then((response) => {
@@ -242,7 +242,7 @@ export default {
     },
 
     async get_project_by_logged() {
-      await fetch('http://localhost:5510/v1/project/logged/', {
+      await fetch('https://fortis-api.55technology.com/v1/project/logged/', {
         headers: { token: localStorage.getItem('access_token') },
       })
         .then((response) => {
@@ -284,7 +284,7 @@ export default {
     },
 
     async get_all_machine_category_group() {
-      await fetch('http://localhost:5510/v1/project/category/', {
+      await fetch('https://fortis-api.55technology.com/v1/project/category/', {
         headers: { token: localStorage.getItem('access_token') },
       })
         .then((response) => response.json())

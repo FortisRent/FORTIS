@@ -79,7 +79,7 @@
 				this.$router.push('/user/manage/edit/')
 			},
 			async get_machine_list() {
-				fetch('http://localhost:5510/v1/machine/company/' + this.$route.params.company_uuid, {
+				fetch('https://fortis-api.55technology.com/v1/machine/company/' + this.$route.params.company_uuid, {
 					headers: { 'token': localStorage.getItem('access_token') }
 				})
 				.then(response => {

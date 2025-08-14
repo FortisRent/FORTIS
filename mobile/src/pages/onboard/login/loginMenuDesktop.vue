@@ -74,7 +74,7 @@ export default {
   methods: {
     async get_user() {
       try {
-        const response = await fetch("http://localhost:5510/v1/user/logged/profile/", {
+        const response = await fetch("https://fortis-api.55technology.com/v1/user/logged/profile/", {
           method: "GET",
           headers: {
             token: localStorage.getItem("access_token"),

@@ -185,7 +185,7 @@ export default {
     async carregarAdicionais () {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/additional/type/company/${this.$route.params.company_uuid}`,
+          `https://fortis-api.55technology.com/v1/additional/type/company/${this.$route.params.company_uuid}`,
           {
             headers: { token: localStorage.getItem('access_token') }
           }
@@ -218,7 +218,7 @@ export default {
       }
 
       try {
-        const response = await fetch(`http://localhost:5510/v1/additional/type/`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/additional/type/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -240,7 +240,7 @@ export default {
 
     async removerAdicional (uuid) {
       try {
-        const response = await fetch(`http://localhost:5510/v1/additional/type/${uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/additional/type/${uuid}`, {
           method: 'DELETE',
           headers: {
             token: localStorage.getItem('access_token')

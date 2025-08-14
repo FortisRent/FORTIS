@@ -9,7 +9,7 @@
         <q-avatar v-if="loaded" size="80px" class="q-mr-sm">
             <q-img
               v-if="selfie_url"
-              :src="`http://localhost:5510/${selfie_url}`"
+              :src="`https://fortis-api.55technology.com/${selfie_url}`"
               width="80px"
               height="80px"
               fit="cover"
@@ -95,7 +95,7 @@ export default {
     },
     async get_user_data() {
 			try {
-				const response = await fetch(`http://localhost:5510/v1/user/logged/`, {
+				const response = await fetch(`https://fortis-api.55technology.com/v1/user/logged/`, {
 					method: "GET",
 					headers: { token: localStorage.getItem("access_token") },
 				});

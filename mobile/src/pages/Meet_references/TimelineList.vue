@@ -53,7 +53,7 @@
                   <q-avatar style="width: 70px; height: 70px;">
                     <q-img
                       v-if="appointment.selfie_url"
-                      :src="`http://localhost:5510/${appointment.selfie_url}`"
+                      :src="`https://fortis-api.55technology.com/${appointment.selfie_url}`"
                       width="70px"
                       height="70px"
                       fit="cover"
@@ -96,7 +96,7 @@ export default {
       this.loading = true; // inicia o carregamento
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/appointment/scheduling/logged/`,
+          `https://fortis-api.55technology.com/v1/appointment/scheduling/logged/`,
           {
             method: "GET",
             headers: {

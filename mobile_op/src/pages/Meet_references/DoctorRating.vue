@@ -61,7 +61,7 @@
                     <q-avatar style="width: 70px; height: 70px;">
                       <q-img
                       v-if="selfie_url"
-                      :src="`http://localhost:5510/${selfie_url}`"
+                      :src="`https://fortis-api.55technology.com/${selfie_url}`"
                       width="70px"
                       height="70px"
                       fit="cover"
@@ -151,7 +151,7 @@ export default {
       negative_details,
     };
 
-    fetch(`http://localhost:5510/v1/review`, {
+    fetch(`https://fortis-api.55technology.com/v1/review`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -188,7 +188,7 @@ export default {
   async get_doctor_data() {
     try {
       const response = await fetch(
-        `http://localhost:5510/v1/doctor/appointment/${this.$route.params.appointment_uuid}`
+        `https://fortis-api.55technology.com/v1/doctor/appointment/${this.$route.params.appointment_uuid}`
       );
       if (!response.ok) throw new Error('Erro ao carregar dados do médico.');
       const data = await response.json();
@@ -202,7 +202,7 @@ export default {
   },
   async create_favorite_doctor() {
 
-    fetch(`http://localhost:5510/v1/favorite/professional/`, {
+    fetch(`https://fortis-api.55technology.com/v1/favorite/professional/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

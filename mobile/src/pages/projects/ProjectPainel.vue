@@ -111,7 +111,7 @@
 				this.$router.push('/user/manage/edit/')
 			},
 			async get_company_by_uuid() {
-				fetch(`http://localhost:5510/v1/project/${this.$route.params.project_uuid}`, {
+				fetch(`https://fortis-api.55technology.com/v1/project/${this.$route.params.project_uuid}`, {
 				method:'GET',
 				headers:{'token': localStorage.getItem('access_token')}})
 				.then(response => {

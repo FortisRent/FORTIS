@@ -123,7 +123,7 @@ export default {
 			},
 		async get_user_data() {
 			try {
-				const response = await fetch(`http://localhost:5510/v1/user/logged/`, {
+				const response = await fetch(`https://fortis-api.55technology.com/v1/user/logged/`, {
 					method: "GET",
 					headers: { token: localStorage.getItem("access_token") },
 				});

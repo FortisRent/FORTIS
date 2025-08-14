@@ -38,7 +38,7 @@
           <q-skeleton v-if="!user_name" type="rect" size="80px" />
           <q-img
 							v-if="selfie_url"
-							:src="`http://localhost:5510/${selfie_url}`"
+							:src="`https://fortis-api.55technology.com/${selfie_url}`"
 							width="80px"
 							height="80px"
 							fit="cover"
@@ -200,7 +200,7 @@ export default {
       done(); // Chama a função done para finalizar o "pull to refresh"
     },
     async get_user_data() {
-      fetch(`http://localhost:5510/v1/doctor/validate/${this.$route.params.doctor_uuid}`, {
+      fetch(`https://fortis-api.55technology.com/v1/doctor/validate/${this.$route.params.doctor_uuid}`, {
         method:'GET',
         headers:{'token': localStorage.getItem('access_token')},
       })
@@ -237,7 +237,7 @@ export default {
         persistent: true,
         dark: true,
       }).onOk(() => {
-        fetch(`http://localhost:5510/v1/doctor/validate/${this.$route.params.doctor_uuid}`, {
+        fetch(`https://fortis-api.55technology.com/v1/doctor/validate/${this.$route.params.doctor_uuid}`, {
           method: 'PUT',
           headers: { 'token': localStorage.getItem('access_token') },
         })

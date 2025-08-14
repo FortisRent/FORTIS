@@ -117,7 +117,7 @@
       console.log('Dados do boot.json: ', this.chatData);
       try {
         const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const response = await fetch('http://localhost:5510/boot.php');
+        const response = await fetch('https://fortis-api.55technology.com/boot.php');
         if (!response.ok) {
           console.error('Erro ao buscar boot.json:', response.statusText);
           return;

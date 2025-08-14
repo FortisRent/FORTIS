@@ -226,7 +226,7 @@ export default {
           throw new Error('No mesmo dia, a hora final deve ser maior que a inicial.');
         }
 
-        const response = await fetch('http://localhost:5510/v1/budget/available/', {
+        const response = await fetch('https://fortis-api.55technology.com/v1/budget/available/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -281,7 +281,7 @@ export default {
           throw new Error('No mesmo dia, a hora final deve ser maior que a inicial.');
         }
 
-        const response = await fetch(`http://localhost:5510/v1/budget/accept/${this.$route.params.budget_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/budget/accept/${this.$route.params.budget_uuid}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

@@ -110,7 +110,7 @@ setup() {
 
   const onSubmit = async () => {
   try {
-    const response = await fetch("http://localhost:5510/v1/login", {
+    const response = await fetch("https://fortis-api.55technology.com/v1/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

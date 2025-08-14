@@ -123,7 +123,7 @@ export default {
     async get_list_role() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/role/company/${this.$route.params.company_uuid}`,
+          `https://fortis-api.55technology.com/v1/role/company/${this.$route.params.company_uuid}`,
           {
             method: 'GET',
             headers: { token: localStorage.getItem('access_token') },
@@ -158,7 +158,7 @@ export default {
     async update_role() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/role/${this.selectedRole.uuid}`,
+          `https://fortis-api.55technology.com/v1/role/${this.selectedRole.uuid}`,
           {
             method: 'PUT',
             headers: {
@@ -205,7 +205,7 @@ export default {
           persistent: true,
         }).onOk(async () => {
           const response = await fetch(
-            `http://localhost:5510/v1/roles/${roles.uuid}`,
+            `https://fortis-api.55technology.com/v1/roles/${roles.uuid}`,
             {
               method: 'DELETE',
               headers: {

@@ -469,7 +469,7 @@ export default {
 
     // ---- fetchers ----
     async get_project_by_uuid() {
-      await fetch(`http://localhost:5510/v1/project/${this.project_uuid}`, {
+      await fetch(`https://fortis-api.55technology.com/v1/project/${this.project_uuid}`, {
         headers: { token: localStorage.getItem('access_token') },
       })
         .then((r) => {
@@ -500,7 +500,7 @@ export default {
     },
 
     async get_budget_by_project_uuid() {
-      await fetch(`http://localhost:5510/v1/budget/${this.$route.params.budget_uuid}`, {
+      await fetch(`https://fortis-api.55technology.com/v1/budget/${this.$route.params.budget_uuid}`, {
         headers: { token: localStorage.getItem('access_token') },
       })
         .then((r) => {
@@ -561,13 +561,13 @@ export default {
 
     async getBudgetPDF() {
       try {
-        const response = await fetch(`http://localhost:5510/v1/budget/pdf/${this.$route.params.budget_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/budget/pdf/${this.$route.params.budget_uuid}`, {
           method: 'GET',
           headers: { token: localStorage.getItem('access_token') },
         });
         if (!response.ok) throw new Error(`Erro ao buscar caminho do PDF: ${response.statusText}`);
         const data = await response.json();
-        window.open(`http://localhost:5510${data.output}`, '_blank');
+        window.open(`https://fortis-api.55technology.com${data.output}`, '_blank');
       } catch (error) {
         console.error('Erro ao buscar ou abrir o PDF:', error);
       }

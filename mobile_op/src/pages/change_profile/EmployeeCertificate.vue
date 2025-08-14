@@ -78,7 +78,7 @@ export default {
 	},
 	methods: {
 		async get_employees_list() {
-			fetch(`http://localhost:5510/v1/employee/certification/${this.$route.params.employee_uuid}`, {
+			fetch(`https://fortis-api.55technology.com/v1/employee/certification/${this.$route.params.employee_uuid}`, {
 				headers: { 'token': localStorage.getItem('access_token') }
 			})
 				.then(response => {
@@ -105,12 +105,12 @@ export default {
 				});
 		},
 		openImage(fileUrl) {
-			this.imageSrc = `http://localhost:5510${fileUrl}`;
+			this.imageSrc = `https://fortis-api.55technology.com${fileUrl}`;
 			this.imageDialog = true;  // Open the dialog
 		},
 		async get_employee_by_logged() {
 			try {
-				const response = await fetch(`http://localhost:5510/v1/employee/logged/`, {
+				const response = await fetch(`https://fortis-api.55technology.com/v1/employee/logged/`, {
 					method: "GET",
 					headers: { token: localStorage.getItem("access_token") },
 				});

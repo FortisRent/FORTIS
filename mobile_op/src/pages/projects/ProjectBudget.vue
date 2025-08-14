@@ -689,7 +689,7 @@ export default {
   },
   methods: {
     async get_project_by_uuid() {
-      await fetch(`http://localhost:5510/v1/project/${this.project_uuid}`, {
+      await fetch(`https://fortis-api.55technology.com/v1/project/${this.project_uuid}`, {
         headers: { token: localStorage.getItem('access_token') },
       })
         .then((response) => {
@@ -733,7 +733,7 @@ export default {
     },
     async get_budget_by_project_uuid() {
       await fetch(
-        `http://localhost:5510/v1/budget/${this.$route.params.budget_uuid}/company/${this.$route.params.company_uuid}`,
+        `https://fortis-api.55technology.com/v1/budget/${this.$route.params.budget_uuid}/company/${this.$route.params.company_uuid}`,
         {
           headers: { token: localStorage.getItem('access_token') },
         }

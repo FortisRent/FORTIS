@@ -114,7 +114,7 @@ export default {
   methods: {
     async carregarMaquinas () {
       try {
-        const response = await fetch(`http://localhost:5510/v1/machine/additional/company/${this.$route.params.company_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/machine/additional/company/${this.$route.params.company_uuid}`, {
           headers: { token: localStorage.getItem('access_token') }
         })
 
@@ -129,7 +129,7 @@ export default {
 
     async carregarOperadores () {
       try {
-        const response = await fetch(`http://localhost:5510/v1/operator/additional/company/${this.$route.params.company_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/operator/additional/company/${this.$route.params.company_uuid}`, {
           headers: { token: localStorage.getItem('access_token') }
         })
 
@@ -149,7 +149,7 @@ export default {
       // Vincular máquinas
       for (const machineUuid of this.selectedMaquinas) {
         try {
-          const response = await fetch('http://localhost:5510/v1/machine/additional/', {
+          const response = await fetch('https://fortis-api.55technology.com/v1/machine/additional/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ export default {
       // Vincular operadores
       for (const operadorUuid of this.selectedOperadores) {
         try {
-          const response = await fetch('http://localhost:5510/v1/operator/additional/', {
+          const response = await fetch('https://fortis-api.55technology.com/v1/operator/additional/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export default {
 
     async removerAdicionalMaquina (machine_additional_uuid) {
       try {
-        const response = await fetch(`http://localhost:5510/v1/machine/additional/${machine_additional_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/machine/additional/${machine_additional_uuid}`, {
           method: 'DELETE',
           headers: { token: localStorage.getItem('access_token') }
         })
@@ -219,7 +219,7 @@ export default {
 
     async removerAdicionalOperador (operator_additional_uuid) {
       try {
-        const response = await fetch(`http://localhost:5510/v1/operator/additional/${operator_additional_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/operator/additional/${operator_additional_uuid}`, {
           method: 'DELETE',
           headers: { token: localStorage.getItem('access_token') }
         })

@@ -106,7 +106,7 @@ export default {
       console.log("Data selecionada:", newDate);
     },
     getAvailableSchedulingHours() {
-      fetch('http://localhost:5510/v1/doctor/calendar/available/', {
+      fetch('https://fortis-api.55technology.com/v1/doctor/calendar/available/', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

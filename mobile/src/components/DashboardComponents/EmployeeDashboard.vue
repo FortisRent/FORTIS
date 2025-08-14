@@ -103,7 +103,7 @@ export default {
     async get_list_operator() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/employee/company/${this.$route.params.company_uuid}`,
+          `https://fortis-api.55technology.com/v1/employee/company/${this.$route.params.company_uuid}`,
           {
             method: 'GET',
             headers: { token: localStorage.getItem('access_token') },
@@ -143,7 +143,7 @@ export default {
     async update_employee() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/employee/${this.selectedEmployee.uuid}`,
+          `https://fortis-api.55technology.com/v1/employee/${this.selectedEmployee.uuid}`,
           {
             method: 'PUT',
             headers: {
@@ -191,7 +191,7 @@ export default {
           persistent: true,
         }).onOk(async () => {
           const response = await fetch(
-            `http://localhost:5510/v1/employees/${employees.uuid}`,
+            `https://fortis-api.55technology.com/v1/employees/${employees.uuid}`,
             {
               method: 'DELETE',
               headers: {

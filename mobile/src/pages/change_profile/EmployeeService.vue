@@ -82,7 +82,7 @@ export default {
 	},
 	methods: {
 		async get_employees_list() {
-			fetch(`http://localhost:5510/v1/employee/certification/${this.$route.params.employee_uuid}`, {
+			fetch(`https://fortis-api.55technology.com/v1/employee/certification/${this.$route.params.employee_uuid}`, {
 				headers: { 'token': localStorage.getItem('access_token') }
 			})
 				.then(response => {
@@ -111,7 +111,7 @@ export default {
 
 		async get_employee_by_logged() {
 			try {
-				const response = await fetch(`http://localhost:5510/v1/employee/logged/`, {
+				const response = await fetch(`https://fortis-api.55technology.com/v1/employee/logged/`, {
 					method: "GET",
 					headers: { token: localStorage.getItem("access_token") },
 				});

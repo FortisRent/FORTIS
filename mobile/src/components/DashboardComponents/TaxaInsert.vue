@@ -147,7 +147,7 @@ export default {
 
     async insert_tax() {
       fetch(
-        `http://localhost:5510/v1/service/charge/`,
+        `https://fortis-api.55technology.com/v1/service/charge/`,
         {
           method: 'POST',
           headers: {
@@ -189,7 +189,7 @@ export default {
 
     async get_list_tax() {
       fetch(
-        `http://localhost:5510/v1/service/charge/company/${this.$route.params.company_uuid}`,
+        `https://fortis-api.55technology.com/v1/service/charge/company/${this.$route.params.company_uuid}`,
         {
           method: 'GET',
           headers: { token: localStorage.getItem('access_token') },
@@ -219,7 +219,7 @@ export default {
     async update_tax(tax) {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/service/charge/${tax.uuid}`,
+          `https://fortis-api.55technology.com/v1/service/charge/${tax.uuid}`,
           {
             method: 'PUT',
             headers: {
@@ -267,7 +267,7 @@ export default {
           persistent: true
         }).onOk(async () => {
           const response = await fetch(
-            `http://localhost:5510/v1/service/charge/${tax.uuid}`,
+            `https://fortis-api.55technology.com/v1/service/charge/${tax.uuid}`,
             {
               method: 'DELETE',
               headers: {

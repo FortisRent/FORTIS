@@ -124,7 +124,7 @@ export default {
 			}
 
 			try {
-				const response = await fetch(`http://localhost:5510/v1/doctor/validate/data/${this.$route.params.doctor_uuid}`, {
+				const response = await fetch(`https://fortis-api.55technology.com/v1/doctor/validate/data/${this.$route.params.doctor_uuid}`, {
 					method: 'PUT',
 					headers: {
 							'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ export default {
 		},
 
 		async get_health_data() {
-			fetch(`http://localhost:5510/v1/health/logged/`, {
+			fetch(`https://fortis-api.55technology.com/v1/health/logged/`, {
 				method:'GET',
 				headers:{'token': localStorage.getItem('access_token')}})
 				.then(response => {

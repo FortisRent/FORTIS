@@ -99,7 +99,7 @@ export default {
     async get_list_operator() {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/operator/company/${this.route.params.company_uuid}`,
+          `https://fortis-api.55technology.com/v1/operator/company/${this.route.params.company_uuid}`,
           {
             method: 'GET',
             headers: { token: localStorage.getItem('access_token') },
@@ -131,7 +131,7 @@ export default {
     async get_list_checks(uuid) {
       try {
         const response = await fetch(
-          `http://localhost:5510/v1/operator/checks/${uuid}`,
+          `https://fortis-api.55technology.com/v1/operator/checks/${uuid}`,
           {
             method: 'GET',
             headers: { token: localStorage.getItem('access_token') },

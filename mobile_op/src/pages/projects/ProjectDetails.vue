@@ -338,7 +338,7 @@ export default {
     },
     async check_in(){
 
-        fetch(`http://localhost:5510/v1/machine/operator/checkin/`, {
+        fetch(`https://fortis-api.55technology.com/v1/machine/operator/checkin/`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -369,7 +369,7 @@ export default {
         },
         async check_out(){
 
-            fetch(`http://localhost:5510/v1/machine/operator/checkout/`, {
+            fetch(`https://fortis-api.55technology.com/v1/machine/operator/checkout/`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -399,7 +399,7 @@ export default {
             });
             },
         async get_project_by_uuid() {
-            fetch(`http://localhost:5510/v1/project/${this.$route.params.project_uuid}`, {
+            fetch(`https://fortis-api.55technology.com/v1/project/${this.$route.params.project_uuid}`, {
                 headers: { 'token': localStorage.getItem('access_token') }
             })
             .then(response => {

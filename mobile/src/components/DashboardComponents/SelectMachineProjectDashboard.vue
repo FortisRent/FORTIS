@@ -272,7 +272,7 @@ export default {
     },
     methods: {
         async get_project_by_uuid() {
-            fetch(`http://localhost:5510/v1/project/${this.$route.params.project_uuid}`, {
+            fetch(`https://fortis-api.55technology.com/v1/project/${this.$route.params.project_uuid}`, {
                 headers: { 'token': localStorage.getItem('access_token') }
             })
             .then(response => response.json())
@@ -320,7 +320,7 @@ export default {
           async get_machine_company() {
             const company_uuid = localStorage.getItem('company_uuid');
 
-            fetch(`http://localhost:5510/v1/machine/company/${company_uuid}`, {
+            fetch(`https://fortis-api.55technology.com/v1/machine/company/${company_uuid}`, {
                 headers: { token: localStorage.getItem('access_token') },
             })
                 .then((response) => {
@@ -379,7 +379,7 @@ export default {
           }
         ];
 
-        fetch(`http://localhost:5510/v1/budget/`, {
+        fetch(`https://fortis-api.55technology.com/v1/budget/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

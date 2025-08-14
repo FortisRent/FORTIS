@@ -228,7 +228,7 @@ export default {
         }
 
         // Mantemos o contrato do backend: usa hour_date como hora inicial.
-        const response = await fetch('http://localhost:5510/v1/budget/available/', {
+        const response = await fetch('https://fortis-api.55technology.com/v1/budget/available/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -279,7 +279,7 @@ export default {
         }
 
         const response = await fetch(
-          `http://localhost:5510/v1/budget/accept/${this.$route.params.budget_uuid}`,
+          `https://fortis-api.55technology.com/v1/budget/accept/${this.$route.params.budget_uuid}`,
           {
             method: 'PUT',
             headers: {

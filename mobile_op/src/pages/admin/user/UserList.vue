@@ -123,7 +123,7 @@ export default {
                 persistent: true,
                 dark: true
             }).onOk(() => {
-                fetch(`http://localhost:5510/v1/user/${user_uid}`, {
+                fetch(`https://fortis-api.55technology.com/v1/user/${user_uid}`, {
                     method: 'DELETE',
                 })
                 .then(response => {
@@ -161,7 +161,7 @@ export default {
                 persistent: true,
                 dark: true
             }).onOk(() => {
-                fetch(`http://localhost:5510/v1/user/reactivate/${user_uid}`, {
+                fetch(`https://fortis-api.55technology.com/v1/user/reactivate/${user_uid}`, {
                     method: 'PUT',
                 })
                 .then(response => {

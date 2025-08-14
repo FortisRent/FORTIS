@@ -121,7 +121,7 @@ export default {
   methods: {
     async get_budget_by_company_uuid() {
       try {
-        const response = await fetch(`http://localhost:5510/v1/budget/company/${this.$route.params.company_uuid}`, {
+        const response = await fetch(`https://fortis-api.55technology.com/v1/budget/company/${this.$route.params.company_uuid}`, {
           headers: { 'token': localStorage.getItem('access_token') }
         });
 

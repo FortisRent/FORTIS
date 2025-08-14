@@ -848,7 +848,7 @@ export default {
         }))
       };
 
-      fetch('http://localhost:5510/v1/budget/payment/', {
+      fetch('https://fortis-api.55technology.com/v1/budget/payment/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', token: localStorage.getItem('access_token') },
         body: JSON.stringify(payload)
@@ -866,7 +866,7 @@ export default {
         const projectUuid = segments[segments.length - 1];
 
         const response = await fetch(
-          `http://localhost:5510/v1/budget/project/financial/${projectUuid}`,
+          `https://fortis-api.55technology.com/v1/budget/project/financial/${projectUuid}`,
           { headers: { token: localStorage.getItem('access_token') } }
         );
         if (!response.ok) throw new Error('Erro ao buscar dados financeiros');

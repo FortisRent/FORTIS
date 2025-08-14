@@ -70,7 +70,7 @@ export default {
 			this.$router.push('/user/manage/edit/')
 		},
 		async get_company_list() {
-			fetch('http://localhost:5510/v1/company/logged/', {
+			fetch('https://fortis-api.55technology.com/v1/company/logged/', {
 				headers: { 'token': localStorage.getItem('access_token') }
 			})
 				.then(response => {

@@ -260,7 +260,7 @@ export default {
   methods: {
     get_all_machine_category_group() {
       this.loading = true;
-      fetch(`http://localhost:5510/v1/category/group/project/${this.$route.params.project_category_uuid}`, {
+      fetch(`https://fortis-api.55technology.com/v1/category/group/project/${this.$route.params.project_category_uuid}`, {
         method: "GET",
         headers: {
           token: localStorage.getItem("access_token"),
@@ -285,7 +285,7 @@ export default {
       if (!category_uuid) return;
 
       this.loading = true;
-      fetch(`http://localhost:5510/v1/machine/category/group/${category_uuid}`, {
+      fetch(`https://fortis-api.55technology.com/v1/machine/category/group/${category_uuid}`, {
         method: "GET",
         headers: { token: localStorage.getItem("access_token") },
       })
@@ -358,7 +358,7 @@ export default {
           };
         });
       });
-      fetch(`http://localhost:5510/v1/project/`, {
+      fetch(`https://fortis-api.55technology.com/v1/project/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

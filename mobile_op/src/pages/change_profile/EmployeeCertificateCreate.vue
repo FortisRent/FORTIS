@@ -22,7 +22,7 @@
         <div class="flex justify-center text-primary">
           <q-uploader 
             ref="uploader"
-            :url="`http://localhost:5510/v1/certification/upload/${this.$route.params.employee_uuid}`"
+            :url="`https://fortis-api.55technology.com/v1/certification/upload/${this.$route.params.employee_uuid}`"
             field-name="certification_file"
             style="min-width: 300px;" 
             :headers="headers"
@@ -101,7 +101,7 @@
 
         const employee_uuid = this.$route.params.employee_uuid;
 
-        fetch(`http://localhost:5510/v1/employee/certification/`, {
+        fetch(`https://fortis-api.55technology.com/v1/employee/certification/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -163,7 +163,7 @@
 
     async get_employee_by_logged() {
           try {
-              const response = await fetch(`http://localhost:5510/v1/employee/certification/${this.$route.params.employee_uuid}`, {
+              const response = await fetch(`https://fortis-api.55technology.com/v1/employee/certification/${this.$route.params.employee_uuid}`, {
                   method: "GET",
                   headers: { token: localStorage.getItem("access_token") },
               });

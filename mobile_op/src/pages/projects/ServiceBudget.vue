@@ -100,7 +100,7 @@ export default {
   methods: {
     async get_all_machine_category_group() {
       this.loading = true;
-      fetch('http://localhost:5510/v1/project/category/', {
+      fetch('https://fortis-api.55technology.com/v1/project/category/', {
         headers: { 'token': localStorage.getItem('access_token') }
       })
         .then(response => response.json())
