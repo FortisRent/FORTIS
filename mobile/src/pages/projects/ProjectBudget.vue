@@ -79,6 +79,15 @@
         </q-item>
 
         <q-item>
+          <q-item-section style="display: flex; gap: 0.5rem">
+            <q-item-label class="text-weight-light">
+              <strong class="text-bold">CPF / CNPJ:</strong>
+              {{ client_cpf || user_cpf}}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item>
           <q-item-section style="display:flex; gap:.5rem">
             <q-item-label class="text-weight-light">
               <strong class="text-bold">Número:</strong> {{ phone }}
@@ -371,6 +380,8 @@ export default {
       loading: true,
 
       // cabeçalho
+      client_cpf:'',
+      user_cpf:'',
       client_name: '',
       created_at: '',
       email: '',
@@ -484,6 +495,8 @@ export default {
           this.project_description = data.project.project_description;
           this.name_machine_category = data.project_stages.map((s) => s.name_machine_category);
           this.project_stages = data.project_stages;
+          this.user_cpf = data.project.user_cpf;
+          this.client_cpf = data.project.client_cpf;
 
           this.zip_code = data.project.zip_code;
           this.street = data.project.street;
