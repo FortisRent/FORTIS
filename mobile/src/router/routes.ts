@@ -57,12 +57,12 @@ const routes: RouteRecordRaw[] = [
 			{ path: 'create/yellow/project/:project_category_uuid', component: () => import('components/DashboardComponents/CreateYellowDashboard.vue') },
 			{ path: 'select/machine/project/:project_uuid', component: () => import('components/DashboardComponents/SelectMachineProjectDashboard.vue') },
 
-      //anexando colaborador a uma máquina
-      { path: '/dashboard/role/collaborator/create/:budget_uuid', component: () => import('components/DashboardComponents/CollaboratorMachineInsert.vue') },
+			//anexando colaborador a uma máquina
+			{ path: '/dashboard/role/collaborator/create/:budget_uuid', component: () => import('components/DashboardComponents/CollaboratorMachineInsert.vue') },
+
 			// Chat
 			{ path: 'chat', component: () => import('pages/Chat.vue') },
-			{ path: 'chat/:uuid', component: () => import('pages/ChatDetail.vue') },
-			{ path: 'chat/:uuid/info', component: () => import('pages/ChatInfo.vue') },
+	
 		],
 	},
 	{
