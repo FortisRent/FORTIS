@@ -52,6 +52,26 @@
 				</div>
 				<q-skeleton v-else type="text" width="200px" />
 			</q-card>
+      <q-card class="card-style q-pa-sm q-mb-md">
+        <div class="row flex justify-between q-mb-none">
+          <div class="row items-center no-wrap">
+            <q-icon name="timer" size="22px" color="secondary" class="q-mr-sm" />
+            <p v-if="loaded" class="text-bold text-primary text-subtitle1 no-margin">
+              Registro Hórarios
+            </p>
+            <q-skeleton v-else type="text" width="200px" />
+          </div>
+          <q-btn v-if="loaded" icon="edit" clickcable rounded size="10px" flat color="black"
+                 :to='`/user/manage/employee/hours/${uuid}`' />
+        </div>
+        <div v-if="loaded" class="text-left q-pa-sm text-caption">
+          <p class="text-primary no-margin text-truncate">Para registrar os horários de trabalho concluído
+          </p>
+
+        </div>
+        <q-skeleton v-else type="text" width="200px" />
+      </q-card>
+
 			<q-card class="card-style q-pa-sm q-mb-md">
 				<div class="row flex justify-between q-mb-none">
 					<div class="row items-center no-wrap">

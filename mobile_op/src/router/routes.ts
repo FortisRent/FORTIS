@@ -12,8 +12,8 @@ const routes: RouteRecordRaw[] = [
 			{ path: 'password/email',					component: () => import('pages/onboard/password/ValidateEmail.vue') },
 			{ path: 'password/code',					component: () => import('pages/onboard/password/ValidateToken.vue') },
 			{ path: 'password/update',					component: () => import('pages/onboard/password/UpdatePassword.vue') },
-			{ path: 'terms',							component: () => import('src/pages/Meet_references/UserTerms.vue') }, 	
-			{ path: 'policy',							component: () => import('src/pages/Meet_references/UserPolicy.vue') }, 	
+			{ path: 'terms',							component: () => import('src/pages/Meet_references/UserTerms.vue') },
+			{ path: 'policy',							component: () => import('src/pages/Meet_references/UserPolicy.vue') },
 			{ path: 'lp',								component: () => import('pages/onboard/LP.vue') },
 			{ path: 'gps',								component: () => import('pages/GPS.vue') },
 		],
@@ -34,9 +34,9 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('layouts/UserTabs.vue'),
 		children: [
 			// Usuários
-			{ path: 'profile',							component: () => import('src/pages/user_profile/UserProfile.vue') }, 	
-			{ path: 'service',							component: () => import('pages/onboard/ServiceNav.vue') }, 	
-			{ path: 'change',							component: () => import('pages/onboard/ChangePerfil.vue') }, 	
+			{ path: 'profile',							component: () => import('src/pages/user_profile/UserProfile.vue') },
+			{ path: 'service',							component: () => import('pages/onboard/ServiceNav.vue') },
+			{ path: 'change',							component: () => import('pages/onboard/ChangePerfil.vue') },
 			{ path: 'manage',							component: () => import('src/pages/user_profile/UserManage.vue') },
 			{ path: 'manage/invite',					component: () => import('src/pages/user_profile/UserInvite.vue') },
 			{ path: 'manage/info',						component: () => import('src/pages/user_profile/UserManageInfo.vue') },
@@ -51,17 +51,19 @@ const routes: RouteRecordRaw[] = [
 			{ path: 'manage/config/',					component: () => import('src/pages/user_profile/UserConfig.vue') },
 			{ path: 'timeline/list',					component: () => import('src/pages/onboard/ServiceProgress.vue') },
 
-			
+
 			// Perfil Colaborador
 			{ path: 'manage/profilechange',								component: () => import('src/pages/user_profile/UserManageProfileChange.vue') },
 			{ path: 'manage/employee/:employee_uuid',					component: () => import('src/pages/change_profile/EmployeeProfile.vue') },
 			{ path: 'manage/employee/documents/:employee_uuid',			component: () => import('src/pages/change_profile/EmployeeEdit.vue') },
-			{ path: 'manage/employee/certificate/:employee_uuid',		component: () => import('src/pages/change_profile/EmployeeCertificate.vue') },
+      { path: 'manage/employee/hours/:employee_uuid',			component: () => import('src/pages/change_profile/EmployeeHours.vue') },
+
+      { path: 'manage/employee/certificate/:employee_uuid',		component: () => import('src/pages/change_profile/EmployeeCertificate.vue') },
 			{ path: 'manage/employee/service/:employee_uuid',			component: () => import('src/pages/change_profile/EmployeeService.vue') },
 			{ path: 'manage/employee/certificate/create/:employee_uuid',component: () => import('src/pages/change_profile/EmployeeCertificateCreate.vue') },
-			
-			// teste para pq tem o company uuid 
-			
+
+			// teste para pq tem o company uuid
+
 			{ path: 'company',											component: () => import('pages/company/CompanyList.vue') },
 			{ path: 'company/options/:company_uuid',					component: () => import('pages/company/CompanyOptions.vue') },
 			{ path: 'company/insert',									component: () => import('pages/company/CompanyInsert.vue') },
@@ -71,44 +73,44 @@ const routes: RouteRecordRaw[] = [
 			{ path: 'company/collaborators/:company_uuid/create',		component: () => import('pages/company/CompanCollaboratorsCreate.vue') },
 			{ path: 'company/projects/:company_uuid',					component: () => import('pages/company/CompanyProjects.vue') },
 			{ path: 'company/budgets',									component: () => import('pages/company/CompanyBudgets.vue') },
-			
+
 			{ path: 'machine/list/:company_uuid',		component: () => import('pages/machine/MachineList.vue') },
 			{ path: 'machine/list/:company_uuid',		component: () => import('pages/machine/MachineList.vue') },
 			{ path: 'machine/insert/:company_uuid',		component: () => import('pages/machine/MachineInsert.vue') },
 			{ path: 'machine/edit/:machine_uuid',		component: () => import('pages/machine/MachineEdit.vue') },
-			
+
 			{ path: 'budget/',							component: () => import('src/pages/projects/ServiceBudget.vue') },
-			
-			// criando projeto  	
+
+			// criando projeto
 			{ path: 'budget/yellow/:project_category_uuid',		component: () => import('src/pages/projects/ServiceBudgetYellow.vue') },
-			{ path: 'budget/other/:project_category_uuid',		component: () => import('src/pages/projects/ServiceBudgetOther.vue') }, 	
-			{ path: 'budget/lifting/:project_category_uuid',	component: () => import('src/pages/projects/ServiceBudgetLifting.vue') }, 
-			
+			{ path: 'budget/other/:project_category_uuid',		component: () => import('src/pages/projects/ServiceBudgetOther.vue') },
+			{ path: 'budget/lifting/:project_category_uuid',	component: () => import('src/pages/projects/ServiceBudgetLifting.vue') },
+
 			// selecionando empresa/máquina
-			{ path: 'project/recomend/:project_uuid',			component: () => import('src/pages/projects/ProjectRecomend.vue') }, 	
+			{ path: 'project/recomend/:project_uuid',			component: () => import('src/pages/projects/ProjectRecomend.vue') },
 
-			{ path: 'project/budget/:budget_uuid/company/:company_uuid',	component: () => import('src/pages/projects/ProjectBudget.vue') }, 	
-			{ path: 'project/history/:project_uuid',						component: () => import('src/pages/projects/ProjectHistory.vue') }, 	
-			{ path: 'project/history/:project_uuid',						component: () => import('src/pages/projects/ProjectHistory.vue') }, 	
-			{ path: 'project/history/:project_uuid',						component: () => import('src/pages/projects/ProjectHistory.vue') }, 	
-			{ path: 'project/history/:project_uuid',						component: () => import('src/pages/projects/ProjectHistory.vue') }, 	
-			{ path: 'project/date/:budget_proposal_uuid',					component: () => import('src/pages/projects/ProjectDate.vue') }, 	
-			
+			{ path: 'project/budget/:budget_uuid/company/:company_uuid',	component: () => import('src/pages/projects/ProjectBudget.vue') },
+			{ path: 'project/history/:project_uuid',						component: () => import('src/pages/projects/ProjectHistory.vue') },
+			{ path: 'project/history/:project_uuid',						component: () => import('src/pages/projects/ProjectHistory.vue') },
+			{ path: 'project/history/:project_uuid',						component: () => import('src/pages/projects/ProjectHistory.vue') },
+			{ path: 'project/history/:project_uuid',						component: () => import('src/pages/projects/ProjectHistory.vue') },
+			{ path: 'project/date/:budget_proposal_uuid',					component: () => import('src/pages/projects/ProjectDate.vue') },
+
 			// lista dos projetos e painel
-			{ path: 'project/:project_uuid',								component: () => import('src/pages/projects/ProposalList.vue') }, 	
-			{ path: 'project/painel/:project_uuid',							component: () => import('src/pages/projects/ProjectPainel.vue') }, 	
-			{ path: 'project/details/:project_uuid/:budget_machine_operator_uuid',		component: () => import('src/pages/projects/ProjectDetails.vue') }, 	
-			{ path: 'project/date/details/:budget_proposal_uuid',			component: () => import('src/pages/projects/ProjectDateDetails.vue') }, 	
-			{ path: 'project/date/list/:project_uuid',						component: () => import('src/pages/projects/ProjectDateList.vue') }, 	
+			{ path: 'project/:project_uuid',								component: () => import('src/pages/projects/ProposalList.vue') },
+			{ path: 'project/painel/:project_uuid',							component: () => import('src/pages/projects/ProjectPainel.vue') },
+			{ path: 'project/details/:project_uuid/:budget_machine_operator_uuid',		component: () => import('src/pages/projects/ProjectDetails.vue') },
+			{ path: 'project/date/details/:budget_proposal_uuid',			component: () => import('src/pages/projects/ProjectDateDetails.vue') },
+			{ path: 'project/date/list/:project_uuid',						component: () => import('src/pages/projects/ProjectDateList.vue') },
 
 
-			{ path: 'manage',							component: () => import('src/pages/user_profile/UserManage.vue') }, 	
-			{ path: 'favorite',							component: () => import('src/pages/Meet_references/UserFavorite.vue') }, 	
+			{ path: 'manage',							component: () => import('src/pages/user_profile/UserManage.vue') },
+			{ path: 'favorite',							component: () => import('src/pages/Meet_references/UserFavorite.vue') },
 		],
 	},
 
 	// - Lista quais empresas um funcionário é associado
-	// 	_ GET  / ———> Não tem?  
+	// 	_ GET  / ———> Não tem?
 
 	// - Lista convites para funcionario se associar a uma empresa
 	// 	_ GET /v1/employee/invite/    ok
@@ -125,10 +127,10 @@ const routes: RouteRecordRaw[] = [
 	// - Ver os DETALHES de um projeto associado a ele
 	// 	_ GET  / ———> Não tem? ok
 
-	// - Checkin em um projeto 
+	// - Checkin em um projeto
 	// 	_ POST /v1/machine/operator/checkin/
 
-	// - Checkout em um projeto 
+	// - Checkout em um projeto
 	// 	_ POST /v1/machine/operator/checkout/
 
 	{
