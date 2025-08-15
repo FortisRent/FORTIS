@@ -1,9 +1,7 @@
 <?php
 
-require_once 'vendor/autoload.php';
-require_once __DIR__ . '/../db/db.php';
-
-
+    require_once 'vendor/autoload.php';
+    require_once __DIR__ . '/../db/db.php';
 
 class BudgetPdfController {
     private $mysqli;
@@ -12,7 +10,6 @@ class BudgetPdfController {
         $this->mysqli = $mysqli;
     }
 
-    /* ----------------- helpers de moeda ----------------- */
     private function brl(float $v): string {
         return number_format($v, 2, ',', '.');
     }
@@ -51,7 +48,7 @@ class BudgetPdfController {
                                                    LEFT JOIN client c ON pc.client_id = c.id
                                                   WHERE b.id = $budget_id AND b.deleted_at IS NULL");
 
-            $budget_charge_list = $this->mysqli->query("SELECT sc.name AS service_charge_name, (sc.amount / 100) AS fee_amount
+            $budget_charge_list = $this->mysqli->query("SELECT sc.name AS service_charge_name, (bsc.fee_amount / 100) AS fee_amount
                                                           FROM budget_service_charge bsc
                                                           INNER JOIN service_charge sc ON bsc.service_charge_id = sc.id
                                                           WHERE bsc.budget_id = $budget_id AND bsc.deleted_at IS NULL");
@@ -159,6 +156,7 @@ class BudgetPdfController {
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
         $pdf->SetMargins(12, 18, 12, true);
+        $pdf->SetAutoPageBreak(true, 22); // reserva espaço p/ rodapé (>= altura do footer)
         $pdf->AddPage();
 
         // Paleta
@@ -167,12 +165,11 @@ class BudgetPdfController {
         $midGrey    = [230,230,230];
         $lightGrey  = [245,245,245];
 
-        // Fonte com acentos
         $pdf->SetFont('dejavusans', '', 10, '', true);
 
         // Logos (ajuste caminhos)
        $logoLeft  = realpath(__DIR__ . '/../../mobile/src/assets/logo-fortis.svg'); 
-        $logoRight = realpath(__DIR__ . '/../../mobile/src/assets/pa-carregadeira.png');
+        $logoRight = realpath(__DIR__ . '/logo-rodobras.png');
         if ($logoLeft && file_exists($logoLeft)) {
             $pdf->ImageSVG(
                 $file = $logoLeft,
@@ -187,68 +184,90 @@ class BudgetPdfController {
                 $fitonpage = false
             );
         }
-        if (is_file($logoRight)) $pdf->Image($logoRight, 155, 13, 40, 0, 'PNG');
+        if (is_file($logoRight)) $pdf->Image($logoRight, 155, 15, 45, 0, 'PNG');
 
-       // Linha preta acima do título
+        // Linha preta acima do título
+        $lineLength = 170;
+        $pageWidth  = $pdf->getPageWidth();
+        $startX     = ($pageWidth - $lineLength) / 2;
+        $endX       = $startX + $lineLength;
+
         $pdf->SetDrawColor($black[0], $black[1], $black[2]);
-        $pdf->SetLineWidth(0.8);
-        $pdf->Line(10, 38, 200, 38);
+        $pdf->SetLineWidth(0.5);
+        $pdf->Line($startX, 38, $endX, 38);
         $pdf->SetLineWidth(0.2);
         $pdf->SetDrawColor(0,0,0);
 
         $pdf->SetXY(10, 40);
-        $pdf->SetFont('dejavusans', 'B', 16, '', true);
+        $pdf->SetFont('dejavusans', 'B', 17, '', true);
         $pdf->Cell(190, 10, 'PROPOSTA COMERCIAL', 0, 1, 'C');
 
-
         // Faixa Cliente / Documento
-        $pdf->Ln(6);
+        $pdf->Ln(3);
         $pdf->SetFillColor(255, 255, 255);
-        $pdf->SetFont('dejavusans','B',11,'',true);
-        $pdf->Cell(125, 12, strtoupper($data['NAME'] ?? ''), 1, 0, 'C', true);
-        $pdf->Cell(65, 12, $data['DOCUMENT'] ?? '', 1, 1, 'C', true);
+        $pdf->SetFont('dejavusans','',13,'',true);
 
-        // Seção SERVIÇO
+        $totalWidth = 100 + 65; 
+        $pageWidth  = $pdf->getPageWidth();
+        $margins    = $pdf->getMargins();
+        $usableWidth = $pageWidth - $margins['left'] - $margins['right'];
+
+
+        $startX = $margins['left'] + ($usableWidth - $totalWidth) / 2;
+        $pdf->SetX($startX);
+
+        $pdf->Cell(100, 15, $data['NAME'] ?? '', 1, 0, 'C', true);
+        $pdf->Cell(65, 15, $data['DOCUMENT'] ?? '', 1, 1, 'C', true);
+
+        // SERVIÇO
         $pdf->Ln(4);
-        $pdf->SetFont('dejavusans','B',11,'',true);
+        $pdf->SetFont('dejavusans','B',12,'',true);
         $pdf->SetTextColor($black[0],$black[1],$black[2]);
-        $pdf->Cell(0, 7, 'SERVIÇO', 0, 1, 'L');
+        $pdf->SetXY($startX, $pdf->GetY());
+        $pdf->Cell($endX, 7, 'SERVIÇO', 0, 1, 'L');
         $pdf->SetFont('dejavusans','',9,'',true);
-        $pdf->MultiCell(0, 6,
+        $pdf->SetXY($startX, $pdf->GetY());
+        $pdf->MultiCell($endX, 6,
             'LOCAÇÃO SPOT DE GUINDASTE ARTICULADO (MUNCK) E FERRAMENTAS DE REMOÇÃO PARA MOVIMENTAÇÃO DE MÁQUINAS' .
             (empty($data['PROJECT_NAME']) ? '' : " | REF: " . $data['IDENTIFIER']),
             0, 'L');
 
         // Tabela de orçamento
         $pdf->Ln(4);
-        $pdf->SetFont('dejavusans','B',11,'',true);
-        $pdf->Cell(0, 8, 'TABELA DE ORÇAMENTO', 0, 1, 'L');
-
-        // Header
-        $pdf->SetFont('dejavusans','',9,'',true);
-
-        // borda fina e discreta
-        $pdf->SetLineStyle([
-            'width' => 0.15,              // tente 0.15 ou 0.10 mm
-            'cap'   => 'butt',
-            'join'  => 'miter',
-            'dash'  => 0,
-            'color' => [80, 80, 80]       // cinza escuro (opcional)
-        ]);
-
-        // $pdf->SetFillColor(240,240,240);  // fundo do header (se quiser)
-        $pdf->Cell(15, 9, 'Item',       'LTRB', 0, 'C', true);
-        $pdf->Cell(17, 9, 'Qnt',        'LTRB', 0, 'C', true);
-        $pdf->Cell(90, 9, 'Descrição',  'LTRB', 0, 'C', true);
-        $pdf->Cell(30, 9, 'Valor Hora', 'LTRB', 0, 'C', true);
-        $pdf->Cell(20, 9, 'Horas',      'LTRB', 0, 'C', true);
-        $pdf->Cell(22, 9, 'Valor',      'LTRB', 1, 'C', true);
-
+        $pdf->SetFont('dejavusans','B',12,'',true);
+        $pdf->SetXY($startX, $pdf->GetY());            // fixa o X na seção
+        $pdf->Cell($endX, 8, 'TABELA DE ORÇAMENTO', 0, 1, 'L');
 
         $pdf->SetFont('dejavusans','',9,'',true);
 
-        $item_count          = 1;
-        $valor_total_minimo  = 0.0;
+        $m        = $pdf->getMargins();
+        $pageW    = $pdf->getPageWidth();
+        $usableW  = $pageW - $m['left'] - $m['right'];
+
+        $cols   = [15, 17, 90, 30, 20, 35];
+        $sum    = array_sum($cols);
+        $scale  = min(1, $usableW / $sum);
+        $w      = array_map(fn($c) => $c * $scale, $cols);
+
+        $tableW = array_sum($w);
+        $startX = $m['left'] + ($usableW - $tableW) / 2;
+
+        // --- HEADER ---
+        $pdf->SetFont('dejavusans','',10,'',true);
+        $pdf->SetLineStyle(['width'=>0.15, 'cap'=>'butt', 'join'=>'miter', 'dash'=>0, 'color'=>[80,80,80]]);
+
+        $pdf->SetX($startX);
+        $pdf->Cell($w[0], 10, 'Item',       1, 0, 'C', true);
+        $pdf->Cell($w[1], 10, 'Qnt',        1, 0, 'C', true);
+        $pdf->Cell($w[2], 10, 'Descrição',  1, 0, 'C', true);
+        $pdf->Cell($w[3], 10, 'Valor Hora', 1, 0, 'C', true);
+        $pdf->Cell($w[4], 10, 'Horas',      1, 0, 'C', true);
+        $pdf->Cell($w[5], 10, 'Valor',      1, 1, 'C', true);
+
+        // --- LINHAS ---
+        $pdf->SetFont('dejavusans','',10,'',true);
+        $item_count = 1;
+        $valor_total_minimo = 0.0;
 
         // Máquinas
         foreach (($data['MACHINES'] ?? []) as $machine) {
@@ -258,110 +277,157 @@ class BudgetPdfController {
             $horasS     = $machine['minimum_rental_period'];
             $valorMinS  = $machine['MINIMUM_RENTAL_PRICE'];
 
-            $valorMinF  = (float) str_replace(['.', ','], ['', '.'], $valorMinS);
-            $valor_total_minimo += $valorMinF;
+            $valor_total_minimo += (float) str_replace(['.', ','], ['', '.'], $valorMinS);
 
             $pdf->SetLineStyle(['width'=>0.15, 'color'=>[80,80,80]]);
+            $pdf->SetX($startX);
 
-            $pdf->Cell(15, 9, $item_count++, 1, 0, 'C');
-            $pdf->Cell(17, 9, $qtde, 1, 0, 'C');
-            $pdf->Cell(90, 9, $descricao, 1, 0, 'L');
-            $pdf->Cell(30, 9, 'R$ ' . $valorHoraS, 1, 0, 'C');
-            $pdf->Cell(20, 9, $horasS, 1, 0, 'C');
-            $pdf->Cell(22, 9, $valorMinS, 1, 1, 'C');
+            $pdf->Cell($w[0], 10, $item_count++, 1, 0, 'C');
+            $pdf->Cell($w[1], 10, $qtde,         1, 0, 'C');
+            $pdf->Cell($w[2], 10, $descricao,    1, 0, 'C');
+            $pdf->Cell($w[3], 10, 'R$ '.$valorHoraS, 1, 0, 'C');
+            $pdf->Cell($w[4], 10, $horasS,       1, 0, 'C');
+            $pdf->Cell($w[5], 10, $valorMinS,    1, 1, 'C');
         }
 
-        // Operadores auxiliares (entram na mesma tabela)
+        // Operadores
         if (!empty($data['AUX_OPERATORS'])) {
             foreach ($data['AUX_OPERATORS'] as $op) {
                 $valor_total_minimo += (float) $op['TOTAL_FLOAT'];
 
                 $pdf->SetLineStyle(['width'=>0.15, 'color'=>[80,80,80]]);
+                $pdf->SetX($startX);
 
-                $pdf->Cell(15, 9, $item_count++, 1, 0, 'C');
-                $pdf->Cell(17, 9, $op['QTD'], 1, 0, 'C');
-                $pdf->Cell(90, 9, $op['ROLE'], 1, 0, 'L');
-                $pdf->Cell(30, 9, 'R$ ' . $op['PRICE'], 1, 0, 'C');
-                $pdf->Cell(20, 9, $op['HOURS'], 1, 0, 'C');
-                $pdf->Cell(22, 9, $op['TOTAL'], 1, 1, 'C');
+                $pdf->Cell($w[0], 10, $item_count++, 1, 0, 'C');
+                $pdf->Cell($w[1], 10, $op['QTD'],    1, 0, 'C');
+                $pdf->Cell($w[2], 10, $op['ROLE'],   1, 0, 'C');
+                $pdf->Cell($w[3], 10, 'R$ '.$op['PRICE'], 1, 0, 'C');
+                $pdf->Cell($w[4], 10, $op['HOURS'],  1, 0, 'C');
+                $pdf->Cell($w[5], 10, $op['TOTAL'],  1, 1, 'C');
             }
         }
 
-        // Encargos como linhas também (colunas de hora/horas ficam "-")
+        // Encargos
         $valor_total_encargos = 0.0;
         if (!empty($data['SERVICE_CHARGE'])) {
             foreach ($data['SERVICE_CHARGE'] as $charge) {
-                $v = $this->fromBrl($charge['FEE_AMOUNT']);
-                $valor_total_encargos += $v;
+                $valor_total_encargos += $this->fromBrl($charge['FEE_AMOUNT']);
 
                 $pdf->SetLineStyle(['width'=>0.15, 'color'=>[80,80,80]]);
-                
-                $pdf->Cell(15, 9, $item_count++, 1, 0, 'C');
-                $pdf->Cell(17, 9, 1, 1, 0, 'C');
-                $pdf->Cell(90, 9, $charge['SERVICE_CHARGE_NAME'], 1, 0, 'L');
-                $pdf->Cell(30, 9, '-', 1, 0, 'C');
-                $pdf->Cell(20, 9, '-', 1, 0, 'C');
-                $pdf->Cell(22, 9, $charge['FEE_AMOUNT'], 1, 1, 'C');
+                $pdf->SetX($startX);
+
+                $pdf->Cell($w[0], 10, $item_count++,                  1, 0, 'C');
+                $pdf->Cell($w[1], 10, 1,                              1, 0, 'C');
+                $pdf->Cell($w[2], 10, $charge['SERVICE_CHARGE_NAME'], 1, 0, 'C');
+                $pdf->Cell($w[3], 10, '-',                            1, 0, 'C');
+                $pdf->Cell($w[4], 10, '-',                            1, 0, 'C');
+                $pdf->Cell($w[5], 10, $charge['FEE_AMOUNT'],          1, 1, 'C');
             }
         }
 
-        // Valor total
-        $pdf->SetFont('dejavusans','',9.5,'',true);
+        // Total (mesma largura/centralização)
+        $total_geral = $valor_total_minimo + $valor_total_encargos;
+        $pdf->SetFont('dejavusans','',10,'',true);
         $pdf->SetFillColor($black[0], $black[1], $black[2]);
         $pdf->SetTextColor(255,255,255);
-        $total_geral = $valor_total_minimo + $valor_total_encargos;
-        $pdf->Cell(172, 12, 'Valor Minimo Total', 1, 0, 'R', true);
-        $pdf->SetFont('dejavusans','B',9.5,'',true);
-        $pdf->Cell(22, 12, 'R$ ' . $this->brl($total_geral), 1, 1, 'C', true);
+
+        $pdf->SetX($startX);
+        $pdf->Cell($tableW - $w[5], 15, 'Valor Total', 1, 0, 'R', true);
+        $pdf->SetFont('dejavusans','B',10,'',true);
+        $pdf->Cell($w[5], 15, 'R$ '.$this->brl($total_geral), 1, 1, 'C', true);
+
         $pdf->SetTextColor(0,0,0);
+
+
+        $lineLength = 170;
+        $pageW      = $pdf->getPageWidth();
+        $secX       = ($pageW - $lineLength) / 2;
+        $secW       = $lineLength;
 
         // CONDIÇÕES GERAIS
         $pdf->Ln(6);
-        $pdf->SetFont('dejavusans','B',11,'',true);
-        $pdf->Cell(0, 8, 'CONDIÇÕES GERAIS', 0, 1, 'L');
+
+        $pdf->SetFont('dejavusans','B',12,'',true);
+        $pdf->SetXY($secX, $pdf->GetY());
+        $pdf->Cell($secW, 8, 'CONDIÇÕES GERAIS', 0, 1, 'L');
+
         $pdf->SetFont('dejavusans','',9,'',true);
+        $pdf->SetDrawColor($black[0], $black[1], $black[2]);
+        $pdf->SetLineWidth(0.4);
+
         $bullets = [
-            'A CONTRATANTE ficará responsável pela liberação da entrada do veículo e do motorista na área onde será realizado o serviço...',
-            'Os tempos demandados para integração, check list e atividades assemelhadas serão considerados horas à disposição e cobradas em medição.',
-            'Na impossibilidade de execução do serviço por motivo não imputável à contratada, permanecem os valores e condições de pagamento desta proposta.',
-            'A contagem mínima das horas normais é entre 7:00h e 18:00h (seg a sex).',
-            'Horas fora do horário normal, finais de semana e feriados são consideradas Horas Especiais com adicional de 30%.',
-            'Período de integração ou treinamento na obra contará como hora trabalhada.'
+            'A CONTRATANTE ficará responsável pela liberação da entrada do veículo e do motorista na área onde será realizado o serviço, sendo providenciada a integração e qualquer outro tipo de liberação que for solicitada;',
+            'Os tempos demandados para realização de integração, check list e demais atividades assemelhadas, serão consideradas horas a disposição e cobradas em medição;',
+            'Na impossibilidade de execução do serviço com o equipamento acima tratado por qualquer motivo não imputável à contratada, não haverá alterações nos valores cobrados e condições de pagamento descritas nesta proposta de serviços, ficando acordado que a contratante deverá providenciar as licenças e autorizações necessárias para a execução do serviço;',
+            'A contagem mínima das horas considerando o valor de horas normais, são entre 7:00h às 18:00h horas de segunda a sexta, trabalhadas ou à disposição',
+            'As horas trabalhadas e ou disposição da contratada além do horário diário normal de trabalho (antes das 7h e após às 18h, finais de semana e feriados), serão consideradas Horas Especiais e serão medidas em separado das horas normais e cobradas com adicional de 30%',
+            'Período de integração ou treinamento na obra contará como hora trabalhada.',
         ];
+
         foreach ($bullets as $b) {
-            $pdf->SetFont('dejavusans','B',9,'',true);
-            $pdf->Write(0, '• ');
-            $pdf->SetFont('dejavusans','',9,'',true);
-            $pdf->MultiCell(0, 6, $b, 0, 'L');
+
+            $pdf->SetX($secX);
+
+            $pdf->SetFont('dejavusans','B',8,'',true);
+            $pdf->Cell(4, 6, '•', 0, 0, 'L');
+
+            $pdf->SetFont('dejavusans','',8,'',true);
+            $pdf->MultiCell($secW - 6, 6, $b, 0, 'L');
+
+            $y = $pdf->GetY();
+            $pdf->Line($secX, $y + 1.0, $secX + $secW, $y + 1.0);
+            $pdf->Ln(4);
         }
 
-        // Validade
-        $pdf->Ln(4);
-        $pdf->SetFont('dejavusans','B',10,'',true);
-        $pdf->Write(0, 'VALIDADE DA PROPOSTA – ');
-        $pdf->SetFont('dejavusans','',9,'',true);
-        $pdf->Write(0, 'A presente proposta tem validade de 30 (Trinta) dias a contar da presente data.');
+        $pdf->Ln(17);
+        $pdf->SetX($secX);
+        $pdf->SetFont('dejavusans','B',12,'',true);
+        $pdf->Write(0, 'VALIDADE DA PROPOSTA');
 
-        // Rodapé preto com contatos
-        $pdf->SetY(-28);
-        $pdf->SetFillColor($black[0], $black[1], $black[2]);
-        $pdf->Rect(10, $pdf->GetY(), 190, 18, 'F');
+        $pdf->SetFont('dejavusans','',10,'',true);
+        $pdf->Ln(5);
+        $pdf->SetX($secX);
+        $pdf->MultiCell($secW, 5, 'A presente proposta tem validade de 30 (Trinta) dias a contar da presente data.', 0, 'L');
+
+
+        // --- RODAPÉ PRETO PÁGINA INTEIRA ---
+        $footerH = 18;
+        $pageW   = $pdf->getPageWidth();
+        $pageH   = $pdf->getPageHeight();
+
+        $oldAPB     = $pdf->getAutoPageBreak();
+        $oldBMargin = $pdf->getBreakMargin();
+        $pdf->SetAutoPageBreak(false, 0);
+
+        $yTop = $pageH - $footerH;
+
+        $pdf->SetFillColor(17,17,17);
+        $pdf->Rect(0, $yTop, $pageW, $footerH, 'F');
+
+        $pdf->SetDrawColor(255,102,0);
+        $pdf->SetLineWidth(0.8);
+        $splitX = $pageW * 0.62;
+        $pdf->Line($splitX, $yTop + 3, $splitX, $yTop + $footerH - 3);
 
         $pdf->SetTextColor(255,255,255);
-        $pdf->SetFont('dejavusans','B',9,'',true);
-        $companyLine = 'RODOBRAS GUINDASTES · 01.000.000/0001-01';
-        $pdf->SetXY(12, $pdf->GetY()+3);
-        $pdf->Cell(120, 6, $companyLine, 0, 0, 'L');
+
+        $pdf->SetFont('dejavusans','B',10,'',true);
+        $pdf->SetXY(2, $yTop + 3);
+        $pdf->Cell($splitX - 4, 6, 'RODOBRAS GUINDASTES - 01.000.000/0001-01', 0, 0, 'R');
 
         $pdf->SetFont('dejavusans','',9,'',true);
-        $pdf->Cell(68, 6, 'Gerado em: ' . date('d/m/Y H:i'), 0, 1, 'R');
+        $pdf->SetXY($splitX + 2, $yTop + 3);
+        $pdf->Cell($pageW - ($splitX + 4), 6, '(48) 99158-2727   ·   (48) 3285-2727', 0, 1, 'L');
 
-        $pdf->SetXY(12, $pdf->GetY());
-        $pdf->Cell(120, 6, 'COMERCIAL@RODOBRASGUINDASTES.COM.BR', 0, 0, 'L');
-        $pdf->Cell(68, 6, '(48) 99158-2727  ·  (48) 3285-2727', 0, 1, 'R');
+        $pdf->SetXY(2, $yTop + 9);
+        $pdf->Cell($splitX - 4, 6, 'COMERCIAL@RODOBRASGUINDASTES.COM.BR', 0, 0, 'R');
 
-        // Reset cor texto
+        $pdf->SetXY($splitX + 2, $yTop + 9);
+        $pdf->SetFont('dejavusans','',8,'',true);
+        $pdf->Cell($pageW - ($splitX + 4), 6, 'Gerado em: ' . date('d/m/Y H:i'), 0, 1, 'L');
+
         $pdf->SetTextColor(0,0,0);
+        $pdf->SetAutoPageBreak($oldAPB, $oldBMargin);
 
         $pdf->Output($output_path, 'F');
         return '/pdfa/output/' . $filename;
