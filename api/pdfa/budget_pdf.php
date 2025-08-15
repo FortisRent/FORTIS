@@ -332,9 +332,9 @@ class BudgetPdfController {
         $pdf->SetTextColor(255,255,255);
 
         $pdf->SetX($startX);
-        $pdf->Cell($tableW - $w[5], 15, 'Valor Total', 1, 0, 'R', true);
+        $pdf->Cell($tableW - $w[5], 12, 'Valor Total', 1, 0, 'R', true);
         $pdf->SetFont('dejavusans','B',10,'',true);
-        $pdf->Cell($w[5], 15, 'R$ '.$this->brl($total_geral), 1, 1, 'C', true);
+        $pdf->Cell($w[5], 12, 'R$ '.$this->brl($total_geral), 1, 1, 'C', true);
 
         $pdf->SetTextColor(0,0,0);
 
@@ -379,7 +379,7 @@ class BudgetPdfController {
             $pdf->Ln(4);
         }
 
-        $pdf->Ln(17);
+        $pdf->Ln(12);
         $pdf->SetX($secX);
         $pdf->SetFont('dejavusans','B',12,'',true);
         $pdf->Write(0, 'VALIDADE DA PROPOSTA');
