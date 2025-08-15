@@ -54,8 +54,8 @@ class BudgetPdfController {
                                                           WHERE bsc.budget_id = $budget_id AND bsc.deleted_at IS NULL");
 
             $query_budget_machine = "SELECT bm.id AS budget_machine_id, b.uuid AS budget_uuid, m.name AS machine_name,
-                                            c.name AS company_name, (mf.price_per_hour / 100) AS price_per_hour,
-                                            mf.minimum_rental_period, (mf.price_per_distance / 100) AS price_per_distance,
+                                            c.name AS company_name, (bm.price_per_hour / 100) AS price_per_hour,
+                                            bm.minimum_rental_period, (bm.price_per_distance / 100) AS price_per_distance, b.total_distance,
                                             mf.distance_amount, mf.special_hour_fee, mf.observation,
                                             DATE_FORMAT(b.created_at, '%d/%m/%Y') AS buget_created_at
                                       FROM budget_machine bm
@@ -72,11 +72,13 @@ class BudgetPdfController {
             $machines = [];
             while ($row = $result_budget_machine->fetch_assoc()) {
                 $machine_price = $row['price_per_hour'] * $row['minimum_rental_period'];
+                $machine_distance_price = $row['total_distance'] * $row['distance_amount'];
 
                 $row['TOTAL_MINIMUM_RENTAL_PRICE'] = number_format($machine_price, 2, ',', '.');
                 $row['MINIMUM_RENTAL_PERIOD'] = number_format($row['minimum_rental_period'], 2, ',', '.');
                 $row['MINIMUM_RENTAL_PRICE'] = number_format($machine_price, 2, ',', '.');
                 $row['price_per_hour'] = number_format($row['price_per_hour'], 2, ',', '.');
+                $row['MACHINE_DISTANCE_PRICE'] = number_format($machine_distance_price, 2, ',', '.');
 
                 $machines[] = $row;
             }
@@ -160,7 +162,7 @@ class BudgetPdfController {
         $pdf->AddPage();
 
         // Paleta
-        $black      = [17,17,17];
+        $black = [0,0,0];
         $darkGrey   = [42,42,42];
         $midGrey    = [230,230,230];
         $lightGrey  = [245,245,245];
@@ -169,13 +171,13 @@ class BudgetPdfController {
 
         // Logos (ajuste caminhos)
        $logoLeft  = realpath(__DIR__ . '/../../mobile/src/assets/logo-fortis.svg'); 
-        $logoRight = realpath(__DIR__ . '/logo-rodobras.png');
+        $logoRight = realpath(__DIR__ . '/LOGO-RODOBRAS.jpg');
         if ($logoLeft && file_exists($logoLeft)) {
             $pdf->ImageSVG(
                 $file = $logoLeft,
-                $x = 15, 
-                $y = 13, 
-                $w = 40, 
+                $x = 20, 
+                $y = 7, 
+                $w = 50, 
                 $h = 0, 
                 $link = '', 
                 $align = '', 
@@ -184,7 +186,7 @@ class BudgetPdfController {
                 $fitonpage = false
             );
         }
-        if (is_file($logoRight)) $pdf->Image($logoRight, 155, 15, 45, 0, 'PNG');
+        if (is_file($logoRight)) $pdf->Image($logoRight, 115, 8, 75, 0, 'JPG');
 
         // Linha preta acima do título
         $lineLength = 170;
@@ -194,11 +196,11 @@ class BudgetPdfController {
 
         $pdf->SetDrawColor($black[0], $black[1], $black[2]);
         $pdf->SetLineWidth(0.5);
-        $pdf->Line($startX, 38, $endX, 38);
+        $pdf->Line($startX, 30, $endX, 30);
         $pdf->SetLineWidth(0.2);
         $pdf->SetDrawColor(0,0,0);
 
-        $pdf->SetXY(10, 40);
+        $pdf->SetXY(10, 33);
         $pdf->SetFont('dejavusans', 'B', 17, '', true);
         $pdf->Cell(190, 10, 'PROPOSTA COMERCIAL', 0, 1, 'C');
 
@@ -224,7 +226,7 @@ class BudgetPdfController {
         $pdf->SetFont('dejavusans','B',12,'',true);
         $pdf->SetTextColor($black[0],$black[1],$black[2]);
         $pdf->SetXY($startX, $pdf->GetY());
-        $pdf->Cell($endX, 7, 'SERVIÇO', 0, 1, 'L');
+        $pdf->Cell($endX, 7, 'PROJETO', 0, 1, 'L');
         $pdf->SetFont('dejavusans','',9,'',true);
         $pdf->SetXY($startX, $pdf->GetY());
         $pdf->MultiCell($endX, 6,
@@ -277,18 +279,41 @@ class BudgetPdfController {
             $horasS     = $machine['minimum_rental_period'];
             $valorMinS  = $machine['MINIMUM_RENTAL_PRICE'];
 
+            // soma do mínimo (horas)
             $valor_total_minimo += (float) str_replace(['.', ','], ['', '.'], $valorMinS);
 
             $pdf->SetLineStyle(['width'=>0.15, 'color'=>[80,80,80]]);
             $pdf->SetX($startX);
-
             $pdf->Cell($w[0], 10, $item_count++, 1, 0, 'C');
             $pdf->Cell($w[1], 10, $qtde,         1, 0, 'C');
-            $pdf->Cell($w[2], 10, $descricao,    1, 0, 'C');
+            $pdf->Cell($w[2], 10, $descricao,    1, 0, 'L');
             $pdf->Cell($w[3], 10, 'R$ '.$valorHoraS, 1, 0, 'C');
             $pdf->Cell($w[4], 10, $horasS,       1, 0, 'C');
             $pdf->Cell($w[5], 10, $valorMinS,    1, 1, 'C');
-        }
+
+            $distFmt  = $machine['MACHINE_DISTANCE_PRICE'] ?? '0,00';
+            $distValF = (float) str_replace(['.', ','], ['', '.'], $distFmt);
+
+            // você também tem total_distance e distance_amount no array:
+            $km       = $machine['total_distance'] ?? 0;
+            $precoKm  = $machine['distance_amount'] ?? 0;
+            $precoKmFmt = is_numeric($precoKm) ? number_format($precoKm, 2, ',', '.') : $precoKm;
+
+            if ($distValF > 0) {
+                $valor_total_minimo += $distValF;
+
+                $pdf->SetX($startX);
+                $pdf->Cell($w[0], 10, '', 1, 0, 'C');
+                $pdf->Cell($w[1], 10, '', 1, 0, 'C');
+                // descrição explicativa da distância
+                $descDist = "Mobilização e desmobilização";
+                $pdf->Cell($w[2], 10, $descDist, 1, 0, 'L');
+                $pdf->Cell($w[3], 10, '-', 1, 0, 'C');
+                $pdf->Cell($w[4], 10, '-', 1, 0, 'C');
+                $pdf->Cell($w[5], 10, $distFmt, 1, 1, 'C');
+            }
+}
+
 
         // Operadores
         if (!empty($data['AUX_OPERATORS'])) {
@@ -379,7 +404,7 @@ class BudgetPdfController {
             $pdf->Ln(4);
         }
 
-        $pdf->Ln(12);
+        $pdf->Ln(8);
         $pdf->SetX($secX);
         $pdf->SetFont('dejavusans','B',12,'',true);
         $pdf->Write(0, 'VALIDADE DA PROPOSTA');
